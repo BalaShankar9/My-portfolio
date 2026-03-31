@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://balabollineni.dev"),
   title: "Bala Sankar Bollineni — Builder",
   description:
     "Self-taught builder. 7 products shipped. TypeScript, Python, AI agents, and more.",
