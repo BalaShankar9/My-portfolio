@@ -1,9 +1,23 @@
+import { Navbar } from "@/components/nav/navbar";
+import { Hero } from "@/components/hero/hero";
+import { ProjectsSection } from "@/components/projects/projects-section";
+import { HowIBuild } from "@/components/how-i-build/how-i-build";
+import { About } from "@/components/about/about";
+import { Contact } from "@/components/contact/contact";
+import { Footer } from "@/components/footer/footer";
+
 export default function Home() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-bold font-mono text-zinc-400">
-        Building...
-      </h1>
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <ProjectsSection />
+        <HowIBuild />
+        <About />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 }
