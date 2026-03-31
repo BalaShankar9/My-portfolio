@@ -27,7 +27,7 @@ export function ProjectShowcase({
         className="w-full lg:w-1/2"
       >
         <div className="relative">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden shadow-2xl shadow-black/50 transform perspective-[1200px] rotate-y-1 rotate-x-1">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden shadow-2xl shadow-black/50 transform perspective-[1200px] rotate-y-1 rotate-x-1 transition-transform duration-500 hover:scale-[1.02]">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-800">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />

@@ -9,9 +9,32 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
+function useActiveSection() {
+  const [active, setActive] = useState("");
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -40% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  return active;
+}
+
 export function Navbar() {
   const [visible, setVisible] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const active = useActiveSection();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.8);
@@ -35,11 +58,22 @@ export function Navbar() {
                 BSB
               </a>
               <div className="hidden md:flex items-center gap-8">
-                {NAV_LINKS.map((link) => (
-                  <a key={link.href} href={link.href} className="text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100">
-                    {link.label}
-                  </a>
-                ))}
+                {NAV_LINKS.map((link) => {
+                  const isActive = link.href === `#${active}`;
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className={`text-sm font-medium transition-colors relative ${
+                        isActive
+                          ? "text-zinc-100 after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-px after:bg-indigo-500"
+                          : "text-zinc-400 hover:text-zinc-100"
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
               </div>
               <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu">
                 <span className={`block h-px w-5 bg-zinc-100 transition-transform ${mobileOpen ? "translate-y-[3.5px] rotate-45" : ""}`} />

@@ -15,7 +15,7 @@ export function ProjectCard({ project }: { project: Project }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="group block rounded-xl border border-zinc-800 bg-zinc-900 p-6 transition-all hover:border-indigo-500/30 hover:shadow-[0_0_30px_rgba(99,102,241,0.06)]"
+      className="group block rounded-xl border border-zinc-800 bg-zinc-900 p-6 transition-all duration-300 hover:border-indigo-500/30 hover:shadow-[0_0_40px_rgba(99,102,241,0.08)] hover:scale-[1.02] hover:-translate-y-1"
     >
       <div className="flex items-start justify-between">
         <h3 className="text-xl font-bold text-zinc-100 group-hover:text-indigo-400 transition-colors">
