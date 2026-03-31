@@ -4,10 +4,10 @@ import { useRef, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-const PARTICLE_COUNT = 2000;
-const WAVE_SPEED = 0.3;
-const WAVE_HEIGHT = 1.5;
-const SPREAD = 20;
+const PARTICLE_COUNT = 3000;
+const WAVE_SPEED = 0.15;
+const WAVE_HEIGHT = 0.8;
+const SPREAD = 30;
 
 function Particles() {
   const meshRef = useRef<THREE.Points>(null);
@@ -34,13 +34,15 @@ function Particles() {
   const colors = useMemo(() => {
     const cols = new Float32Array(PARTICLE_COUNT * 3);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const isAccent = Math.random() < 0.15;
+      const isAccent = Math.random() < 0.1;
       if (isAccent) {
-        cols[i * 3] = 0.39;
-        cols[i * 3 + 1] = 0.4;
-        cols[i * 3 + 2] = 0.95;
+        // Softer indigo
+        cols[i * 3] = 0.35 + Math.random() * 0.1;
+        cols[i * 3 + 1] = 0.36 + Math.random() * 0.1;
+        cols[i * 3 + 2] = 0.85 + Math.random() * 0.1;
       } else {
-        const brightness = 0.6 + Math.random() * 0.4;
+        // Dimmer white particles for subtlety
+        const brightness = 0.3 + Math.random() * 0.35;
         cols[i * 3] = brightness;
         cols[i * 3 + 1] = brightness;
         cols[i * 3 + 2] = brightness;
@@ -70,8 +72,8 @@ function Particles() {
       const dx = bx - mouseRef.current.x;
       const dz = bz - mouseRef.current.y;
       const dist = Math.sqrt(dx * dx + dz * dz);
-      const influence = Math.max(0, 1 - dist / 4);
-      const push = influence * influence * 2;
+      const influence = Math.max(0, 1 - dist / 5);
+      const push = influence * influence * 1.2;
 
       arr[i * 3 + 1] = wave + push;
     }
@@ -95,10 +97,10 @@ function Particles() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.04}
+        size={0.03}
         vertexColors
         transparent
-        opacity={0.8}
+        opacity={0.5}
         sizeAttenuation
         depthWrite={false}
       />

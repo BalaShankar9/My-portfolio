@@ -23,6 +23,9 @@ export function Hero() {
         <ParticleField />
       </div>
 
+      {/* Bottom fade gradient for smooth transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-950 to-transparent z-[5]" />
+
       <div className="relative z-10 max-w-5xl w-full">
         <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
           {name.split("").map((char, i) =>
