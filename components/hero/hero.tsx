@@ -1,14 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { SITE } from "@/lib/constants";
+
+const ParticleField = dynamic(
+  () =>
+    import("@/components/hero/particle-field").then((m) => ({
+      default: m.ParticleField,
+    })),
+  { ssr: false }
+);
 
 const name = "BALA SANKAR BOLLINENI";
 
 export function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center px-6">
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-950 to-zinc-950" />
+      <div className="absolute inset-0">
+        <ParticleField />
+      </div>
 
       <div className="relative z-10 max-w-5xl w-full">
         <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
