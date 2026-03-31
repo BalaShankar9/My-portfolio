@@ -1,4 +1,5 @@
 import { Mail } from "lucide-react";
+import { GitHubIcon } from "@/components/ui/icons";
 import { SOCIAL } from "@/lib/constants";
 
 export function Footer() {
@@ -14,9 +15,10 @@ export function Footer() {
             href={SOCIAL.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-600 hover:text-zinc-400 transition-colors text-sm"
+            className="inline-flex items-center gap-1.5 text-zinc-600 hover:text-zinc-400 transition-colors text-sm"
             aria-label="GitHub"
           >
+            <GitHubIcon size={16} />
             GitHub
           </a>
           <a

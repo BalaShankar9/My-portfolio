@@ -1,3 +1,4 @@
+import { CursorGlow } from "@/components/ui/cursor-glow";
 import { Navbar } from "@/components/nav/navbar";
 import { Hero } from "@/components/hero/hero";
 import { ProjectsSection } from "@/components/projects/projects-section";
@@ -9,6 +10,7 @@ import { Footer } from "@/components/footer/footer";
 export default function Home() {
   return (
     <>
+      <CursorGlow />
       <Navbar />
       <main>
         <Hero />

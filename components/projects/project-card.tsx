@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CodeXml } from "lucide-react";
+import { GitHubIcon } from "@/components/ui/icons";
 import type { Project } from "@/lib/projects";
 import { TechPill } from "@/components/ui/tech-pill";
 
@@ -21,10 +21,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <h3 className="text-xl font-bold text-zinc-100 group-hover:text-indigo-400 transition-colors">
           {project.name}
         </h3>
-        <CodeXml
-          size={18}
-          className="text-zinc-600 group-hover:text-zinc-400 transition-colors mt-1"
-        />
+        <GitHubIcon size={18} className="text-zinc-600 group-hover:text-zinc-400 transition-colors mt-1" />
       </div>
       <p className="mt-2 text-sm text-zinc-400 leading-relaxed">
         {project.pitch}

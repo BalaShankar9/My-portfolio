@@ -1,5 +1,6 @@
 import { Mail } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { GitHubIcon } from "@/components/ui/icons";
 import { SOCIAL, CONTACT } from "@/lib/constants";
 
 export function Contact() {
@@ -35,6 +36,7 @@ export function Contact() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-300 rounded-lg border border-zinc-800 transition-all hover:border-indigo-500/50 hover:text-indigo-400"
             >
+              <GitHubIcon size={16} />
               GitHub
             </a>
           </div>

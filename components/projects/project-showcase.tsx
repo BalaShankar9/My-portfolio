@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, CodeXml } from "lucide-react";
+import { ExternalLink } from "lucide-react";
+import { GitHubIcon } from "@/components/ui/icons";
 import type { Project } from "@/lib/projects";
 import { TechPill } from "@/components/ui/tech-pill";
 import { MetricCallout } from "@/components/ui/metric-callout";
@@ -106,7 +107,7 @@ export function ProjectShowcase({
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-zinc-700 text-zinc-300 transition-all hover:border-indigo-500 hover:text-indigo-400"
           >
-            <CodeXml size={14} /> Source Code
+            <GitHubIcon size={14} /> Source Code
           </a>
         </div>
       </motion.div>
