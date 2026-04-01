@@ -6,6 +6,7 @@ import { GitHubIcon } from "@/components/ui/icons";
 import type { Project } from "@/lib/projects";
 import { TechPill } from "@/components/ui/tech-pill";
 import { MetricCallout } from "@/components/ui/metric-callout";
+import { ProjectPreview } from "@/components/projects/project-preview";
 
 export function ProjectShowcase({
   project,
@@ -44,11 +45,7 @@ export function ProjectShowcase({
                 </div>
               </div>
             </div>
-            <div className="aspect-video bg-zinc-900 flex items-center justify-center">
-              <span className="text-6xl font-bold text-zinc-800 font-mono">
-                {project.name[0]}
-              </span>
-            </div>
+            <ProjectPreview slug={project.slug} />
           </div>
         </div>
       </motion.div>
