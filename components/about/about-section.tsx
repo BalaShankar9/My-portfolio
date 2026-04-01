@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export function AboutSection() {
   return (
-    <section id="about" className="px-[clamp(24px,5vw,80px)] py-24 border-t border-[#2a2d35]">
+    <section id="about" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
       <div className="font-mono text-xs tracking-[0.15em] uppercase text-[#6366f1] mb-3">About</div>
       <h2 className="text-[clamp(28px,4vw,48px)] font-semibold tracking-[-0.03em] mb-8">Who I am</h2>
 
@@ -13,7 +13,7 @@ export function AboutSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="max-w-[640px] space-y-5"
+        className="max-w-[640px] space-y-6"
       >
         <p className="text-[17px] text-[#a1a1aa] leading-[1.7]">
           <strong className="text-[#e4e4e7] font-medium">I&apos;m a self-taught full-stack builder based in Cardiff, UK.</strong>{" "}

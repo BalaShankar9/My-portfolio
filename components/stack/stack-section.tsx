@@ -5,11 +5,11 @@ import { skillCategories } from "@/lib/experience";
 
 export function StackSection() {
   return (
-    <section id="stack" className="px-[clamp(24px,5vw,80px)] py-24 border-t border-[#2a2d35]">
+    <section id="stack" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
       <div className="font-mono text-xs tracking-[0.15em] uppercase text-[#6366f1] mb-3">Tech Stack</div>
       <h2 className="text-[clamp(28px,4vw,48px)] font-semibold tracking-[-0.03em] mb-12">What I build with</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {skillCategories.map((cat, i) => (
           <motion.div
             key={cat.name}

@@ -84,10 +84,10 @@ export function LiveShowcase({
       </div>
 
       {/* Iframe */}
-      <div className="relative w-full h-[280px]">
+      <div className="relative w-full h-[320px]">
         <iframe
           src={pages[current].url}
-          className={`w-full h-full border-0 bg-white transition-opacity duration-300 ${
+          className={`w-full h-full border-0 bg-[#16181d] transition-opacity duration-300 ${
             fading ? "opacity-0" : "opacity-100"
           }`}
           loading="lazy"

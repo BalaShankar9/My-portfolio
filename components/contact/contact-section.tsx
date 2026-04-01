@@ -5,7 +5,7 @@ import { SOCIAL } from "@/lib/constants";
 
 export function ContactSection() {
   return (
-    <section id="contact" className="px-[clamp(24px,5vw,80px)] py-24 border-t border-[#2a2d35]">
+    <section id="contact" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export function ContactSection() {
         <div className="flex gap-3 flex-wrap">
           <a
             href={`mailto:${SOCIAL.email}`}
-            className="font-mono text-[13px] px-5 py-2.5 rounded-md bg-[#6366f1] text-white border border-[#6366f1] hover:bg-[#818cf8] transition-all"
+            className="font-mono text-[13px] px-6 py-3 rounded-md bg-[#6366f1] text-white border border-[#6366f1] hover:bg-[#818cf8] transition-all"
           >
             {SOCIAL.email}
           </a>
@@ -31,13 +31,13 @@ export function ContactSection() {
             href={SOCIAL.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[13px] px-5 py-2.5 rounded-md text-[#a1a1aa] border border-[#2a2d35] hover:border-[#6366f1] hover:text-[#6366f1] transition-all"
+            className="font-mono text-[13px] px-6 py-3 rounded-md text-[#a1a1aa] border border-[#2a2d35] hover:border-[#6366f1] hover:text-[#6366f1] transition-all"
           >
             GitHub
           </a>
           <a
             href="/resume.pdf"
-            className="font-mono text-[13px] px-5 py-2.5 rounded-md text-[#a1a1aa] border border-[#2a2d35] hover:border-[#6366f1] hover:text-[#6366f1] transition-all"
+            className="font-mono text-[13px] px-6 py-3 rounded-md text-[#a1a1aa] border border-[#2a2d35] hover:border-[#6366f1] hover:text-[#6366f1] transition-all"
           >
             Download CV
           </a>

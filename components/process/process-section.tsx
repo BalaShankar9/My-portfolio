@@ -11,7 +11,7 @@ const cards = [
 
 export function ProcessSection() {
   return (
-    <section id="process" className="px-[clamp(24px,5vw,80px)] py-24 border-t border-[#2a2d35]">
+    <section id="process" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
       <div className="font-mono text-xs tracking-[0.15em] uppercase text-[#6366f1] mb-3">How I work</div>
       <h2 className="text-[clamp(28px,4vw,48px)] font-semibold tracking-[-0.03em] mb-12">My approach to building software</h2>
 
@@ -23,10 +23,10 @@ export function ProcessSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="p-6 border border-[#2a2d35] rounded-[10px] bg-[#16181d]"
+            className="p-7 border border-[#2a2d35] rounded-[10px] bg-[#16181d]"
           >
-            <div className="font-mono text-[28px] font-bold text-[#6366f1] opacity-40 mb-3">{card.num}</div>
-            <h3 className="text-[17px] font-semibold mb-2">{card.title}</h3>
+            <div className="font-mono text-[28px] font-bold text-[#6366f1] opacity-40 mb-4">{card.num}</div>
+            <h3 className="text-[17px] font-semibold mb-3">{card.title}</h3>
             <p className="text-sm text-[#52525b] leading-relaxed">{card.desc}</p>
           </motion.div>
         ))}

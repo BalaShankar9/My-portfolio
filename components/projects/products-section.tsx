@@ -35,7 +35,7 @@ export function ProductsSection() {
       <h2 className="text-[clamp(28px,4vw,48px)] font-semibold tracking-[-0.03em] mb-4">
         Every project started with a real problem.
       </h2>
-      <p className="text-base text-[#a1a1aa] max-w-[600px] mb-14">
+      <p className="text-base text-[#a1a1aa] max-w-[600px] mb-16">
         I don&apos;t build demo apps. I find broken systems, figure out what&apos;s missing, and ship something that works. Here&apos;s the build log.
       </p>
 
@@ -47,7 +47,7 @@ export function ProductsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="mb-16 p-8 border border-[#2a2d35] rounded-xl bg-[#16181d] relative overflow-hidden hover:border-[rgba(99,102,241,0.2)] hover:shadow-[0_0_40px_rgba(99,102,241,0.04)] transition-all"
+          className="mb-20 p-8 md:p-10 border border-[#2a2d35] rounded-xl bg-[#16181d] relative overflow-hidden hover:border-[rgba(99,102,241,0.2)] hover:shadow-[0_0_40px_rgba(99,102,241,0.04)] transition-all"
         >
           {/* Live badge */}
           {project.links.live && (
@@ -58,13 +58,13 @@ export function ProductsSection() {
           )}
 
           {/* Problem */}
-          <div className="font-mono text-xs text-[#52525b] mb-3 px-3 py-2 bg-[rgba(239,68,68,0.04)] border-l-2 border-[#ef4444] rounded-r">
+          <div className="font-mono text-[13px] text-[#52525b] mb-4 px-3 py-2 bg-[rgba(239,68,68,0.04)] border-l-2 border-[#ef4444] rounded-r">
             <strong className="text-[#ef4444] font-semibold">Problem:</strong>{" "}
             {project.problem}
           </div>
 
           {/* Name + pitch */}
-          <h3 className="text-[clamp(24px,3.5vw,36px)] font-semibold tracking-[-0.02em] mb-1.5">
+          <h3 className="mt-2 text-[clamp(24px,3.5vw,36px)] font-semibold tracking-[-0.02em] mb-1.5">
             <Link
               href={`/projects/${project.slug}`}
               className="text-[#e4e4e7] hover:text-[#6366f1] transition-colors"
@@ -72,18 +72,18 @@ export function ProductsSection() {
               {project.name} →
             </Link>
           </h3>
-          <p className="text-[15px] text-[#a1a1aa] mb-4 max-w-[600px] leading-relaxed">
+          <p className="text-[15px] text-[#a1a1aa] mb-5 max-w-[600px] leading-relaxed">
             {project.pitch}
           </p>
 
           {/* Engineering insight */}
-          <div className="text-[13px] text-[#52525b] mb-4 px-3.5 py-2.5 bg-[#1c1e24] rounded-md border-l-2 border-[#6366f1] leading-relaxed">
+          <div className="text-[13px] text-[#52525b] mb-5 px-3.5 py-2.5 bg-[#1c1e24] rounded-md border-l-2 border-[#6366f1] leading-relaxed">
             <strong className="text-[#6366f1] font-semibold">Engineering challenge:</strong>{" "}
             {project.whatISolved}
           </div>
 
           {/* Tech pills */}
-          <div className="flex flex-wrap gap-[5px] mb-4">
+          <div className="flex flex-wrap gap-[5px] mb-5">
             {project.tech.map((t) => (
               <span
                 key={t}

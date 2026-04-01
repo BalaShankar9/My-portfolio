@@ -12,7 +12,7 @@ const timeline = [
 
 export function JourneySection() {
   return (
-    <section id="journey" className="px-[clamp(24px,5vw,80px)] py-24 border-t border-[#2a2d35]">
+    <section id="journey" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
       <div className="font-mono text-xs tracking-[0.15em] uppercase text-[#6366f1] mb-3">Timeline</div>
       <h2 className="text-[clamp(28px,4vw,48px)] font-semibold tracking-[-0.03em] mb-12">How I got here</h2>
 
@@ -24,7 +24,7 @@ export function JourneySection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, duration: 0.4 }}
-            className="flex gap-6 py-6 border-b border-[#2a2d35] last:border-b-0"
+            className="flex gap-6 py-7 border-b border-[#2a2d35] last:border-b-0"
           >
             <span className="font-mono text-sm font-bold text-[#6366f1] min-w-[48px] pt-[2px]">{item.year}</span>
             <span className="text-[15px] text-[#a1a1aa] leading-relaxed">{item.text}</span>
