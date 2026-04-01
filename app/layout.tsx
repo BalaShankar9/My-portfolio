@@ -1,56 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/nav/navbar";
+import { StatusBar } from "@/components/nav/status-bar";
+import { CursorGlow } from "@/components/ui/cursor-glow";
+import { AvatarGuide } from "@/components/ui/avatar-guide";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://balabollineni.dev"),
-  title: "Bala Sankar Bollineni — Builder",
-  description:
-    "Self-taught builder. 7 products shipped. TypeScript, Python, AI agents, and more.",
-  keywords: [
-    "Bala Sankar Bollineni",
-    "portfolio",
-    "full stack developer",
-    "TypeScript",
-    "Next.js",
-    "Python",
-    "AI agents",
-    "Cardiff",
-  ],
+  title: "Bala Sankar Bollineni — Full Stack Builder",
+  description: "7 products shipped. All self-taught. All in production. Full stack builder based in Cardiff, UK.",
+  keywords: ["Bala Sankar Bollineni", "full stack developer", "TypeScript", "Python", "AI agents", "Cardiff"],
   authors: [{ name: "Bala Sankar Bollineni" }],
   openGraph: {
-    title: "Bala Sankar Bollineni — Builder",
-    description:
-      "I taught myself to code, then shipped 7 products nobody asked me to build.",
+    title: "Bala Sankar Bollineni — Full Stack Builder",
+    description: "7 products shipped. All self-taught. All in production.",
     type: "website",
     locale: "en_GB",
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark`}
-    >
-      <body className="bg-zinc-950 text-zinc-100 font-sans antialiased">
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="bg-[#0f1115] text-[#e4e4e7] font-sans antialiased">
         <Navbar />
+        <StatusBar />
+        <CursorGlow />
         {children}
+        <AvatarGuide />
       </body>
     </html>
   );

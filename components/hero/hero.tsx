@@ -1,153 +1,93 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import dynamic from "next/dynamic";
-import { SITE } from "@/lib/constants";
+import { motion } from "framer-motion";
 
-const ParticleField = dynamic(
-  () =>
-    import("@/components/hero/particle-field").then((m) => ({
-      default: m.ParticleField,
-    })),
-  { ssr: false }
-);
+const f = (delay: number) => ({
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] as const },
+});
 
 export function Hero() {
-  const prefersReducedMotion = useReducedMotion();
-
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center px-6 overflow-hidden">
-      {/* Particle field */}
-      <div className="absolute inset-0">
-        <ParticleField />
-      </div>
+    <section className="relative min-h-screen flex flex-col justify-center px-[clamp(24px,5vw,80px)] pt-24">
+      {/* Gradient blobs */}
+      <div className="absolute top-[10%] left-[15%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(99,102,241,0.12),transparent_70%)] pointer-events-none blur-[100px]" />
+      <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(34,197,94,0.05),transparent_70%)] pointer-events-none blur-[80px]" />
 
-      {/* Gradient mesh overlays */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-indigo-500/[0.07] blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-violet-500/[0.05] blur-[100px]" />
-      </div>
+      <motion.div {...f(0)} className="font-mono text-[13px] text-[#52525b] mb-4">
+        <span className="text-[#22c55e]">$</span> bala --status
+      </motion.div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent z-[5]" />
+      <motion.h1
+        {...f(0.2)}
+        className="font-sans text-[clamp(40px,8vw,80px)] font-bold leading-[1.0] tracking-[-0.04em] text-[#e4e4e7]"
+      >
+        <span className="font-mono bg-gradient-to-br from-[#6366f1] to-[#a78bfa] bg-clip-text text-transparent">7</span> products shipped.
+        <br />
+        All self-taught.
+        <br />
+        All in production.
+      </motion.h1>
 
-      <div className="relative z-10 max-w-6xl w-full">
-        {/* Small pre-title */}
-        <motion.div
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="mb-6"
-        >
-          <span className="text-sm font-mono text-indigo-400/80 tracking-widest uppercase">
-            Self-taught builder &middot; Cardiff, UK
-          </span>
-        </motion.div>
+      <motion.div {...f(0.5)} className="font-mono text-[clamp(14px,2vw,18px)] text-[#52525b] mt-3">
+        <span className="text-[#6366f1]">Bala Sankar Bollineni</span> — Full Stack Builder
+      </motion.div>
 
-        {/* Main name — massive, dramatic */}
-        <div className="overflow-hidden">
-          <motion.h1
-            initial={prefersReducedMotion ? {} : { y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-            className="text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.9] tracking-tighter"
-          >
-            BALA
-          </motion.h1>
-        </div>
-        <div className="overflow-hidden">
-          <motion.h1
-            initial={prefersReducedMotion ? {} : { y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-            className="text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.9] tracking-tighter"
-          >
-            <span className="bg-gradient-to-r from-zinc-100 via-indigo-200 to-indigo-400 bg-clip-text text-transparent">
-              SANKAR
-            </span>
-          </motion.h1>
-        </div>
-        <div className="overflow-hidden">
-          <motion.h1
-            initial={prefersReducedMotion ? {} : { y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-            className="text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.9] tracking-tighter text-zinc-100"
-          >
-            BOLLINENI
-          </motion.h1>
-        </div>
+      <motion.p {...f(0.7)} className="text-[clamp(16px,2vw,20px)] text-[#a1a1aa] max-w-[560px] mt-6 leading-relaxed">
+        I solve real problems by building real products. AI career tools, immigration intelligence, ride-sharing networks, security scanners — each started from a frustration and ended with a deployed URL.
+      </motion.p>
 
-        {/* Tagline */}
-        <motion.p
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-8 text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed"
-        >
-          {SITE.description}
-        </motion.p>
-
-        {/* Stats bar */}
-        <motion.div
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.6 }}
-          className="mt-8 flex gap-8 items-center"
-        >
-          <div className="flex flex-col">
-            <span className="text-3xl font-mono font-bold text-zinc-100">7</span>
-            <span className="text-xs text-zinc-500">Products Shipped</span>
+      {/* 6-second scan facts */}
+      <motion.div
+        {...f(0.9)}
+        className="flex gap-8 mt-8 py-5 border-t border-b border-[#2a2d35]"
+      >
+        {[
+          { value: "7", label: "Products shipped" },
+          { value: "3", label: "Live with users" },
+          { value: "5", label: "Languages" },
+          { value: "140K+", label: "Data points indexed" },
+        ].map((fact) => (
+          <div key={fact.label} className="flex flex-col">
+            <span className="font-mono text-[28px] font-bold text-[#e4e4e7]">{fact.value}</span>
+            <span className="font-mono text-[11px] text-[#52525b]">{fact.label}</span>
           </div>
-          <div className="w-px h-8 bg-zinc-800" />
-          <div className="flex flex-col">
-            <span className="text-3xl font-mono font-bold text-zinc-100">5</span>
-            <span className="text-xs text-zinc-500">Languages</span>
-          </div>
-          <div className="w-px h-8 bg-zinc-800" />
-          <div className="flex flex-col">
-            <span className="text-3xl font-mono font-bold text-zinc-100">3</span>
-            <span className="text-xs text-zinc-500">Live Products</span>
-          </div>
-        </motion.div>
+        ))}
+      </motion.div>
 
-        {/* CTAs */}
-        <motion.div
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="mt-10 flex flex-wrap gap-4"
+      <motion.div {...f(1.1)} className="flex gap-4 mt-8">
+        <a
+          href="#products"
+          className="font-mono text-[13px] px-5 py-2.5 rounded-md bg-[#6366f1] text-white border border-[#6366f1] hover:bg-[#818cf8] hover:shadow-[0_0_24px_rgba(99,102,241,0.15)] transition-all"
         >
-          <a
-            href="#projects"
-            className="group inline-flex items-center gap-2 px-7 py-3.5 text-sm font-medium rounded-full border border-zinc-100 text-zinc-100 transition-all duration-300 hover:bg-indigo-500 hover:border-indigo-500 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]"
-          >
-            See What I've Built
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </a>
-          <a
-            href="/resume.pdf"
-            download
-            className="inline-flex items-center px-7 py-3.5 text-sm font-medium rounded-full bg-indigo-500 text-white transition-all duration-300 hover:bg-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]"
-          >
-            Download CV
-          </a>
-        </motion.div>
-      </div>
+          See what I built →
+        </a>
+        <a
+          href="/resume.pdf"
+          className="font-mono text-[13px] px-5 py-2.5 rounded-md text-[#a1a1aa] border border-[#2a2d35] hover:border-[#6366f1] hover:text-[#6366f1] transition-all"
+        >
+          Download CV
+        </a>
+        <a
+          href="https://github.com/BalaShankar9"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-[13px] px-5 py-2.5 rounded-md text-[#a1a1aa] border border-[#2a2d35] hover:border-[#6366f1] hover:text-[#6366f1] transition-all"
+        >
+          GitHub
+        </a>
+      </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Scroll hint */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        transition={{ delay: 1.5, duration: 0.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
       >
-        <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-          className="w-px h-6 bg-gradient-to-b from-zinc-500 to-transparent"
-        />
+        <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#52525b]">Scroll</span>
+        <div className="w-px h-5 bg-gradient-to-b from-[#52525b] to-transparent animate-pulse" />
       </motion.div>
     </section>
   );
