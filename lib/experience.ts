@@ -1,85 +1,99 @@
-export interface Experience {
+export type Experience = {
   role: string;
   company: string;
   type: string;
   period: string;
   description: string;
   highlights: string[];
-}
+};
 
-export interface Education {
+export const experience: Experience[] = [
+  {
+    role: "Independent Full Stack Engineer",
+    company: "Self-employed",
+    type: "Self-taught Builder",
+    period: "2022 – Present",
+    description:
+      "Shipped 7 production products across AI agents, web scraping, ride-sharing, security tools, game dev, and CLI tooling. Full lifecycle: architecture → build → test → deploy → iterate.",
+    highlights: [
+      "Built HireStack AI — 6-agent career platform with streaming UI",
+      "Built SponsorIntel — 140K+ sponsor intelligence platform",
+      "Built CarpoolNetwork — ride-sharing with real-time chat",
+      "Built SecProbe — 10-module security scanner",
+      "Built ToolForge (Go), EdgeAbyss (Unity), AI-Life-Ops (monorepo)",
+    ],
+  },
+  {
+    role: "Digital Marketing & Web Experience Engineer",
+    company: "OYO Hotels (UK)",
+    type: "Project-Based",
+    period: "2023 – 2024",
+    description:
+      "Maintained production websites and internal tools for a global hospitality platform.",
+    highlights: [
+      "Performance monitoring and analytics pipelines (GA4, GTM)",
+      "Technical SEO improvements across multi-region platforms",
+      "Release management and QA testing",
+    ],
+  },
+  {
+    role: "Brand & Digital Systems Assistant",
+    company: "SA Cakes Ltd",
+    type: "Internship",
+    period: "2022 – 2023",
+    description:
+      "Built internal content management systems and campaign tools.",
+    highlights: [
+      "Backend integrations and analytics-driven optimisation",
+      "Responsive, conversion-focused digital platforms",
+    ],
+  },
+];
+
+export type Education = {
   degree: string;
   institution: string;
   year: string;
   detail: string;
-}
-
-export interface SkillCategory {
-  name: string;
-  skills: string[];
-}
-
-export const experience: Experience[] = [
-  {
-    role: "Full Stack Developer",
-    company: "Freelance / Contract",
-    type: "Contract",
-    period: "2024 — Present",
-    description:
-      "Building modern web applications for clients using Next.js, React, and TypeScript with a focus on performance and user experience.",
-    highlights: [
-      "Developed and deployed multiple full-stack applications with Next.js App Router",
-      "Implemented responsive, accessible UIs with Tailwind CSS and Framer Motion",
-      "Integrated third-party APIs and managed cloud deployments on Vercel",
-    ],
-  },
-  {
-    role: "Frontend Developer",
-    company: "Personal Projects",
-    type: "Personal",
-    period: "2023 — 2024",
-    description:
-      "Built a portfolio of projects exploring modern frontend frameworks, state management, and design systems.",
-    highlights: [
-      "Created reusable component libraries with TypeScript and Storybook",
-      "Explored server-side rendering and static generation patterns",
-      "Practiced CI/CD workflows with GitHub Actions and Vercel",
-    ],
-  },
-];
+};
 
 export const education: Education[] = [
   {
-    degree: "Bachelor of Technology in Computer Science",
-    institution: "University",
-    year: "2024",
-    detail: "Focused on web technologies, data structures, and software engineering.",
+    degree: "MA Digital Media Management",
+    institution: "Sheffield Hallam University",
+    year: "2023",
+    detail: "Focused on digital product strategy, web technologies, and data-driven decision making",
   },
 ];
+
+export type SkillCategory = {
+  name: string;
+  skills: string[];
+};
 
 export const skillCategories: SkillCategory[] = [
   {
     name: "Languages",
-    skills: ["TypeScript", "JavaScript", "Python", "HTML", "CSS"],
+    skills: ["TypeScript", "Python", "Go", "C#", "JavaScript", "SQL"],
   },
   {
-    name: "Frameworks",
-    skills: ["Next.js", "React", "Node.js", "Express", "Tailwind CSS"],
+    name: "Frontend",
+    skills: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Three.js"],
   },
   {
-    name: "Tools & Platforms",
-    skills: ["Git", "GitHub", "Vercel", "VS Code", "Figma"],
+    name: "Backend",
+    skills: ["FastAPI", "Node.js", "NestJS", "Express", "REST APIs", "Celery"],
   },
   {
-    name: "Databases",
-    skills: ["PostgreSQL", "MongoDB", "Prisma", "Supabase"],
+    name: "Data & Infrastructure",
+    skills: ["PostgreSQL", "Supabase", "Redis", "Prisma", "Docker", "GitHub Actions"],
   },
   {
-    name: "Concepts",
-    skills: ["REST APIs", "SSR / SSG", "Responsive Design", "CI/CD", "Testing"],
+    name: "AI & Scraping",
+    skills: ["Multi-agent systems", "LLM integration", "Playwright", "Web scraping", "NLP"],
   },
   {
-    name: "Currently Learning",
-    skills: ["AI/ML", "Rust", "System Design", "AWS"],
+    name: "Other",
+    skills: ["Unity", "CLI tooling", "Technical SEO", "GA4/GTM", "CI/CD"],
   },
 ];
