@@ -163,80 +163,69 @@ function SponsorIntelPreview() {
 
 function CarpoolNetworkPreview() {
   return (
-    <div className="aspect-video bg-white relative overflow-hidden">
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-5 text-center">
-        {/* Nav */}
-        <div className="absolute top-2 left-0 right-0 flex items-center justify-between px-4">
-          <span className="text-[8px] font-bold text-gray-900">Carpool Network</span>
-          <div className="flex gap-2 items-center">
-            <span className="text-[5px] text-gray-500">How It Works</span>
-            <span className="text-[5px] text-gray-500">Communities</span>
-            <span className="text-[5px] text-gray-500">Safety</span>
-            <span className="text-[5px] px-1.5 py-0.5 rounded-md text-white font-bold bg-emerald-500">Get Started</span>
-          </div>
+    <div className="aspect-video relative overflow-hidden">
+      {/* White nav bar at top */}
+      <div className="absolute top-0 left-0 right-0 bg-white border-b border-gray-100 px-4 py-1.5 flex items-center justify-between z-20">
+        <span className="text-[7px] font-bold text-gray-900">Carpool Network</span>
+        <div className="flex gap-2 items-center">
+          <span className="text-[5px] text-gray-500">How It Works</span>
+          <span className="text-[5px] text-gray-500">Communities</span>
+          <span className="text-[5px] text-gray-500">Safety</span>
+          <span className="text-[5px] text-red-600">Sign In</span>
+          <span className="text-[5px] px-1.5 py-0.5 rounded-md text-white font-bold bg-gradient-to-r from-red-500 to-orange-500">Get Started</span>
         </div>
+      </div>
 
-        {/* Hero */}
-        <div className="text-[17px] sm:text-[20px] font-bold leading-tight text-gray-900">
-          Share Rides. Save Money.
-        </div>
-        <div className="text-[17px] sm:text-[20px] font-bold leading-tight text-emerald-600">
-          Help the Planet.
-        </div>
-        <div className="mt-1.5 text-[7px] text-gray-500 max-w-[240px]">
-          Join our growing community of UK commuters sharing their daily journeys.
-        </div>
+      {/* Bold red-to-orange gradient hero — matching the real site */}
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500 via-red-600 to-orange-500" />
 
-        {/* CTAs */}
-        <div className="mt-2.5 flex gap-2">
-          <div className="px-3 py-1 bg-emerald-500 rounded-lg text-[7px] font-semibold text-white">
-            Get Started Free
-          </div>
-          <div className="px-3 py-1 border border-gray-300 rounded-lg text-[7px] text-gray-600">
-            See How It Works
-          </div>
-        </div>
-
-        {/* Stats row */}
-        <div className="mt-3 flex gap-4">
-          {[
-            { v: "500+", l: "Members" },
-            { v: "1.2K", l: "Rides Shared" },
-            { v: "4.9", l: "Avg Rating" },
-          ].map((s) => (
-            <div key={s.l} className="text-center">
-              <div className="text-[10px] font-bold text-emerald-600">{s.v}</div>
-              <div className="text-[5px] text-gray-400">{s.l}</div>
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-5 text-center pt-4">
+        <div className="flex items-center gap-3 w-full max-w-[350px]">
+          {/* Left side: text */}
+          <div className="flex-1 text-left">
+            <div className="text-white font-bold text-[16px] sm:text-[19px] leading-tight">
+              Share Rides.
             </div>
-          ))}
-        </div>
-
-        {/* Feature cards */}
-        <div className="mt-2.5 flex gap-1.5">
-          {[
-            { t: "Trusted Community", c: "Verified drivers & passengers" },
-            { t: "Safe & Secure", c: "In-app messaging & tracking" },
-            { t: "Eco-Friendly", c: "Reduce your carbon footprint" },
-          ].map((f) => (
-            <div key={f.t} className="px-2 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-left" style={{ width: "90px" }}>
-              <div className="text-[5px] font-bold text-gray-800">{f.t}</div>
-              <div className="text-[4px] text-gray-500 mt-0.5">{f.c}</div>
+            <div className="text-white font-bold text-[16px] sm:text-[19px] leading-tight">
+              Save Money.
             </div>
-          ))}
-        </div>
+            <div className="font-bold text-[16px] sm:text-[19px] leading-tight text-orange-200">
+              Help the Planet.
+            </div>
+            <div className="mt-1.5 text-[7px] text-red-100/80 max-w-[180px]">
+              Join our growing community of UK commuters sharing their daily journeys.
+            </div>
 
-        {/* Cities */}
-        <div className="mt-2 flex gap-1.5">
-          {["Cardiff", "Sheffield"].map((city) => (
-            <span key={city} className="px-1.5 py-0.5 text-[5px] font-medium text-emerald-700 bg-emerald-50 rounded-full border border-emerald-200">
-              {city} — Active
-            </span>
-          ))}
-          {["Bristol", "Manchester"].map((city) => (
-            <span key={city} className="px-1.5 py-0.5 text-[5px] text-gray-400 bg-gray-50 rounded-full border border-gray-200">
-              {city} — Soon
-            </span>
-          ))}
+            <div className="mt-2.5 flex gap-2">
+              <div className="px-2.5 py-1 bg-white rounded-xl text-[7px] font-semibold text-red-600 shadow-sm">
+                Get Started Free
+              </div>
+              <div className="px-2.5 py-1 border-2 border-white rounded-xl text-[7px] text-white font-medium">
+                How It Works
+              </div>
+            </div>
+
+            <div className="mt-1 text-[5px] text-red-200">
+              Free to join. No credit card required.
+            </div>
+          </div>
+
+          {/* Right side: frosted stats card */}
+          <div className="w-[120px] bg-white/10 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-white/20">
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { v: "500+", l: "Members" },
+                { v: "1.2K", l: "Rides Shared" },
+                { v: "890", l: "Completed" },
+                { v: "4.9", l: "Avg Rating" },
+              ].map((s) => (
+                <div key={s.l} className="text-center">
+                  <div className="text-[10px] font-bold text-white">{s.v}</div>
+                  <div className="text-[4px] text-red-100/70">{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
