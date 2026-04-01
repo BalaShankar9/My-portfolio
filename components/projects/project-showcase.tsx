@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 import { GitHubIcon } from "@/components/ui/icons";
 import type { Project } from "@/lib/projects";
 import { TechPill } from "@/components/ui/tech-pill";
@@ -106,6 +107,12 @@ export function ProjectShowcase({
           >
             <GitHubIcon size={14} /> Source Code
           </a>
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-indigo-500/10 text-indigo-400 transition-all hover:bg-indigo-500/20 border border-indigo-500/20"
+          >
+            View Project →
+          </Link>
         </div>
       </motion.div>
     </div>
