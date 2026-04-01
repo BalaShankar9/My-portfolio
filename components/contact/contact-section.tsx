@@ -23,7 +23,7 @@ export function ContactSection() {
         <div className="flex gap-3 flex-wrap">
           <a
             href={`mailto:${SOCIAL.email}`}
-            className="font-mono text-[13px] px-6 py-3 rounded-md bg-[#6366f1] text-white border border-[#6366f1] hover:bg-[#818cf8] transition-all"
+            className="font-mono text-[13px] px-6 py-3 rounded-md bg-[#6366f1] text-white border border-[#6366f1] hover:bg-[#818cf8] shadow-[0_0_20px_rgba(99,102,241,0.15)] hover:shadow-[0_0_30px_rgba(99,102,241,0.25)] transition-all"
           >
             {SOCIAL.email}
           </a>

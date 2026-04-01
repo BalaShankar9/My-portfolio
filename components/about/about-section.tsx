@@ -15,11 +15,11 @@ export function AboutSection() {
         transition={{ duration: 0.5 }}
         className="max-w-[640px] space-y-6"
       >
-        <p className="text-[17px] text-[#a1a1aa] leading-[1.7]">
+        <p className="text-lg text-[#a1a1aa] leading-[1.7]">
           <strong className="text-[#e4e4e7] font-medium">I&apos;m a self-taught full-stack builder based in Cardiff, UK.</strong>{" "}
           I came to tech through Digital Media, not Computer Science. I don&apos;t have a traditional engineering background — what I have is 7 shipped products and the proof that I can figure anything out.
         </p>
-        <p className="text-[17px] text-[#a1a1aa] leading-[1.7]">
+        <p className="text-lg text-[#a1a1aa] leading-[1.7]">
           Every project on this page started from a real problem I encountered. I use AI as a building tool — it makes a solo developer as productive as a small team — but the design decisions, architecture, and debugging are mine.
         </p>
         <p className="text-[17px] text-[#a1a1aa] leading-[1.7]">

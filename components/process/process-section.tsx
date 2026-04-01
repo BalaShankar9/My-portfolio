@@ -23,9 +23,9 @@ export function ProcessSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="p-7 border border-[#2a2d35] rounded-[10px] bg-[#16181d]"
+            className="p-7 border border-[#2a2d35] rounded-[10px] bg-[#16181d] hover:bg-[#1c1e24] transition-all duration-300 hover:border-t-[#6366f1]/30"
           >
-            <div className="font-mono text-[28px] font-bold text-[#6366f1] opacity-40 mb-4">{card.num}</div>
+            <div className="font-mono text-[32px] font-bold text-[#6366f1] opacity-30 mb-4">{card.num}</div>
             <h3 className="text-[17px] font-semibold mb-3">{card.title}</h3>
             <p className="text-sm text-[#52525b] leading-relaxed">{card.desc}</p>
           </motion.div>

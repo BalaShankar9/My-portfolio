@@ -23,7 +23,7 @@ export function StackSection() {
               {cat.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="font-mono text-[13px] text-[#52525b] px-3 py-1.5 bg-[#16181d] border border-[#2a2d35] rounded-md hover:border-[#6366f1] hover:text-[#e4e4e7] transition-all cursor-default"
+                  className="font-mono text-[13px] text-[#52525b] px-3 py-1.5 bg-[#16181d] border border-[#2a2d35] rounded-md hover:border-[#6366f1] hover:text-[#e4e4e7] hover:scale-[1.03] transition-all cursor-default"
                 >
                   {skill}
                 </span>
