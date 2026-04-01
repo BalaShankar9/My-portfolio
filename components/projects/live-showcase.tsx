@@ -1,35 +1,36 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
-type Page = { label: string; url: string };
+type Page = { label: string; url: string; screenshot?: string };
 
 export function LiveShowcase({
   pages,
   domain,
+  embeddable = false,
 }: {
   pages: Page[];
   domain: string;
+  embeddable?: boolean;
 }) {
   const [current, setCurrent] = useState(0);
   const [fading, setFading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const goTo = useCallback(
-    (index: number) => {
-      setFading(true);
-      setTimeout(() => {
-        setCurrent(index);
-        setFading(false);
-      }, 300);
-    },
-    []
-  );
+  function goTo(index: number) {
+    setFading(true);
+    setTimeout(() => {
+      setCurrent(index);
+      setFading(false);
+    }, 300);
+  }
 
   // Auto-cycle when visible
   useEffect(() => {
     if (!containerRef.current) return;
+    const el = containerRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -41,7 +42,7 @@ export function LiveShowcase({
                 setTimeout(() => setFading(false), 300);
                 return next;
               });
-            }, 5000);
+            }, 4000);
           } else {
             if (timerRef.current) clearInterval(timerRef.current);
           }
@@ -49,7 +50,7 @@ export function LiveShowcase({
       },
       { threshold: 0.3 }
     );
-    observer.observe(containerRef.current);
+    observer.observe(el);
     return () => {
       observer.disconnect();
       if (timerRef.current) clearInterval(timerRef.current);
@@ -83,19 +84,46 @@ export function LiveShowcase({
         </div>
       </div>
 
-      {/* Iframe */}
-      <div className="relative w-full h-[320px]">
-        <iframe
-          src={pages[current].url}
-          className={`w-full h-full border-0 bg-[#16181d] transition-opacity duration-300 ${
-            fading ? "opacity-0" : "opacity-100"
-          }`}
-          loading="lazy"
-          sandbox="allow-scripts allow-same-origin"
-          title={domain}
-        />
-        <span className="absolute bottom-2 right-2 font-mono text-[9px] text-[#52525b] bg-[#0f1115]/85 backdrop-blur-sm px-2 py-[3px] rounded border border-[#2a2d35] pointer-events-none">
-          Live preview — {domain}
+      {/* Content — iframe or screenshot */}
+      <div className="relative w-full h-[320px] overflow-hidden">
+        {embeddable ? (
+          <iframe
+            src={pages[current].url}
+            className={`w-full h-full border-0 bg-[#16181d] transition-opacity duration-300 ${
+              fading ? "opacity-0" : "opacity-100"
+            }`}
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin"
+            title={domain}
+          />
+        ) : pages[current].screenshot ? (
+          <Image
+            src={pages[current].screenshot}
+            alt={`${domain} — ${pages[current].label}`}
+            fill
+            className={`object-cover object-top transition-opacity duration-300 ${
+              fading ? "opacity-0" : "opacity-100"
+            }`}
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
+        ) : (
+          <div className="w-full h-full bg-[#16181d] flex items-center justify-center">
+            <span className="font-mono text-[#2a2d35] text-4xl font-bold">{domain[0]?.toUpperCase()}</span>
+          </div>
+        )}
+        {/* Visit overlay */}
+        <a
+          href={pages[current].url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm text-sm text-white border border-white/20 font-mono">
+            Visit {domain} ↗
+          </span>
+        </a>
+        <span className="absolute bottom-2 right-2 font-mono text-[9px] text-[#52525b] bg-[#0f1115]/85 backdrop-blur-sm px-2 py-[3px] rounded border border-[#2a2d35] pointer-events-none z-[5]">
+          {embeddable ? "Live preview" : "Screenshot"} — {domain}
         </span>
       </div>
 

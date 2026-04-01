@@ -5,25 +5,36 @@ import { featuredProjects, secondaryProjects } from "@/lib/projects";
 import { LiveShowcase } from "@/components/projects/live-showcase";
 import Link from "next/link";
 
-const showcasePages: Record<string, { label: string; url: string }[]> = {
-  "hirestack-ai": [
-    { label: "Home", url: "https://hirestack.tech" },
-    { label: "Pricing", url: "https://hirestack.tech/pricing" },
-    { label: "New App", url: "https://hirestack.tech/new" },
-    { label: "Login", url: "https://hirestack.tech/login" },
-  ],
-  sponsorintel: [
-    { label: "Home", url: "https://sponsorintel.london" },
-    { label: "Search", url: "https://sponsorintel.london/search" },
-    { label: "Jobs", url: "https://sponsorintel.london/jobs" },
-    { label: "Pricing", url: "https://sponsorintel.london/pricing" },
-  ],
-  carpoolnetwork: [
-    { label: "Home", url: "https://carpoolnetwork.co.uk" },
-    { label: "Communities", url: "https://carpoolnetwork.co.uk/community" },
-    { label: "Safety", url: "https://carpoolnetwork.co.uk/safety" },
-    { label: "Sign In", url: "https://carpoolnetwork.co.uk/sign-in" },
-  ],
+type ShowcaseConfig = {
+  pages: { label: string; url: string; screenshot?: string }[];
+  embeddable: boolean;
+};
+
+const showcaseConfigs: Record<string, ShowcaseConfig> = {
+  "hirestack-ai": {
+    embeddable: false,
+    pages: [
+      { label: "Home", url: "https://hirestack.tech", screenshot: "/screenshots/hirestack-home.png" },
+      { label: "Pricing", url: "https://hirestack.tech/pricing", screenshot: "/screenshots/hirestack-pricing.png" },
+    ],
+  },
+  sponsorintel: {
+    embeddable: true,
+    pages: [
+      { label: "Home", url: "https://sponsorintel.london" },
+      { label: "Search", url: "https://sponsorintel.london/search" },
+      { label: "Jobs", url: "https://sponsorintel.london/jobs" },
+      { label: "Pricing", url: "https://sponsorintel.london/pricing" },
+    ],
+  },
+  carpoolnetwork: {
+    embeddable: false,
+    pages: [
+      { label: "Home", url: "https://carpoolnetwork.co.uk", screenshot: "/screenshots/carpool-home.png" },
+      { label: "Communities", url: "https://carpoolnetwork.co.uk/community", screenshot: "/screenshots/carpool-community.png" },
+      { label: "Safety", url: "https://carpoolnetwork.co.uk/safety", screenshot: "/screenshots/carpool-safety.png" },
+    ],
+  },
 };
 
 export function ProductsSection() {
@@ -95,14 +106,15 @@ export function ProductsSection() {
           </div>
 
           {/* Live showcase */}
-          {showcasePages[project.slug] && (
+          {showcaseConfigs[project.slug] && (
             <LiveShowcase
-              pages={showcasePages[project.slug]}
+              pages={showcaseConfigs[project.slug].pages}
               domain={
                 project.links.live
                   ? new URL(project.links.live).hostname
                   : project.slug
               }
+              embeddable={showcaseConfigs[project.slug].embeddable}
             />
           )}
 
