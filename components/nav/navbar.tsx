@@ -6,10 +6,10 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
+  { label: "Uses", href: "/uses" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 function useActiveSection() {
@@ -71,9 +71,13 @@ export function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
               )}
               <div className="hidden md:flex items-center gap-8">
                 {NAV_LINKS.map((link) => {
-                  const isActive = link.href === `#${active}`;
+                  const isAnchor = link.href.startsWith("/#");
+                  const isActive = isAnchor
+                    ? link.href === `/#${active}`
+                    : pathname === link.href;
+                  const Component = isAnchor ? "a" : Link;
                   return (
-                    <a
+                    <Component
                       key={link.href}
                       href={link.href}
                       className={`text-sm font-medium transition-colors relative ${
@@ -83,7 +87,7 @@ export function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
                       }`}
                     >
                       {link.label}
-                    </a>
+                    </Component>
                   );
                 })}
               </div>
@@ -103,11 +107,15 @@ export function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
                 className="md:hidden fixed inset-0 top-[57px] bg-zinc-950/95 backdrop-blur-xl z-40"
               >
                 <div className="flex flex-col items-center justify-center gap-8 pt-24">
-                  {NAV_LINKS.map((link) => (
-                    <a key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="text-2xl font-medium text-zinc-100">
-                      {link.label}
-                    </a>
-                  ))}
+                  {NAV_LINKS.map((link) => {
+                    const isAnchor = link.href.startsWith("/#");
+                    const Component = isAnchor ? "a" : Link;
+                    return (
+                      <Component key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="text-2xl font-medium text-zinc-100">
+                        {link.label}
+                      </Component>
+                    );
+                  })}
                 </div>
               </motion.div>
             )}
