@@ -61,9 +61,22 @@ export function ProjectsSection() {
                       </div>
                     </div>
                   </div>
-                  <div className="transition-transform duration-700 group-hover:scale-[1.01]">
-                    <ProjectPreview slug={project.slug} />
-                  </div>
+                  {project.links.live ? (
+                    <div className="relative">
+                      <iframe
+                        src={project.links.live}
+                        className="w-full border-0 pointer-events-none"
+                        style={{ height: "400px" }}
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin"
+                        title={`${project.name} live preview`}
+                      />
+                    </div>
+                  ) : (
+                    <div className="transition-transform duration-700 group-hover:scale-[1.01]">
+                      <ProjectPreview slug={project.slug} />
+                    </div>
+                  )}
                 </div>
               </Link>
 
