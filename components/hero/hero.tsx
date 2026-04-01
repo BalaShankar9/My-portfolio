@@ -41,16 +41,16 @@ export function Hero() {
       {/* 6-second scan facts */}
       <motion.div
         {...f(0.9)}
-        className="flex gap-10 mt-10 py-6 border-t border-b border-[#2a2d35]"
+        className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10"
       >
         {[
-          { value: "7", label: "Products shipped" },
-          { value: "3", label: "Live with users" },
-          { value: "5", label: "Languages" },
-          { value: "140K+", label: "Data points indexed" },
+          { value: "7", label: "Products shipped", color: "from-[#6366f1]/10 to-transparent" },
+          { value: "3", label: "Live with users", color: "from-[#22c55e]/10 to-transparent" },
+          { value: "5", label: "Languages", color: "from-[#06b6d4]/10 to-transparent" },
+          { value: "140K+", label: "Data points indexed", color: "from-[#eab308]/10 to-transparent" },
         ].map((fact) => (
-          <div key={fact.label} className="flex flex-col">
-            <span className="font-mono text-[32px] font-bold text-[#e4e4e7]">{fact.value}</span>
+          <div key={fact.label} className={`bg-gradient-to-br ${fact.color} border border-[#2a2d35] rounded-lg p-4`}>
+            <span className="font-mono text-[32px] font-bold text-[#e4e4e7] block">{fact.value}</span>
             <span className="font-mono text-[11px] text-[#52525b]">{fact.label}</span>
           </div>
         ))}

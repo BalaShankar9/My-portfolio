@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { skillCategories } from "@/lib/experience";
 
+const catColors = ["text-[#6366f1]", "text-[#22c55e]", "text-[#06b6d4]", "text-[#eab308]", "text-[#ec4899]", "text-[#f97316]"];
+
 export function StackSection() {
   return (
     <section id="stack" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
@@ -18,7 +20,7 @@ export function StackSection() {
             viewport={{ once: true }}
             transition={{ delay: i * 0.06, duration: 0.4 }}
           >
-            <h3 className="font-mono text-[11px] tracking-[0.15em] uppercase text-[#6366f1] mb-3">{cat.name}</h3>
+            <h3 className={`font-mono text-[11px] tracking-[0.15em] uppercase ${catColors[i % catColors.length]} mb-3`}>{cat.name}</h3>
             <div className="flex flex-wrap gap-[6px]">
               {cat.skills.map((skill) => (
                 <span

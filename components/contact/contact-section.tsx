@@ -5,7 +5,7 @@ import { SOCIAL } from "@/lib/constants";
 
 export function ContactSection() {
   return (
-    <section id="contact" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
+    <section id="contact" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35] bg-[#16181d] rounded-none md:rounded-2xl md:mx-6 lg:mx-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -14,7 +14,7 @@ export function ContactSection() {
         className="max-w-[640px]"
       >
         <div className="font-mono text-[13px] text-[#22c55e] mb-3">$ bala connect</div>
-        <h2 className="text-[clamp(28px,4vw,44px)] font-semibold tracking-[-0.03em] mb-3">
+        <h2 className="text-[clamp(32px,5vw,52px)] font-semibold tracking-[-0.03em] mb-3">
           Let&apos;s build something together.
         </h2>
         <p className="text-base text-[#a1a1aa] mb-8 max-w-[480px]">

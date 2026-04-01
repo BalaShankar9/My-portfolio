@@ -11,7 +11,7 @@ const cards = [
 
 export function ProcessSection() {
   return (
-    <section id="process" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35]">
+    <section id="process" className="px-[clamp(24px,5vw,80px)] py-28 border-t border-[#2a2d35] bg-[#16181d] rounded-none md:rounded-2xl md:mx-6 lg:mx-10">
       <div className="font-mono text-xs tracking-[0.15em] uppercase text-[#6366f1] mb-3">How I work</div>
       <h2 className="text-[clamp(28px,4vw,48px)] font-semibold tracking-[-0.03em] mb-12">My approach to building software</h2>
 

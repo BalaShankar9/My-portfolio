@@ -24,9 +24,9 @@ export function JourneySection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, duration: 0.4 }}
-            className="flex gap-6 py-7 border-b border-[#2a2d35] last:border-b-0"
+            className="flex gap-6 py-7 border-b border-[#2a2d35] last:border-b-0 group hover:bg-[#16181d]/50 -mx-4 px-4 rounded-lg transition-colors"
           >
-            <span className="font-mono text-base font-bold text-[#6366f1] min-w-[56px] pt-[2px]">{item.year}</span>
+            <span className="font-mono text-base font-bold text-[#6366f1] min-w-[56px] pt-[2px] border-l-2 border-[#6366f1] pl-3">{item.year}</span>
             <span className="text-base text-[#a1a1aa] leading-relaxed">{item.text}</span>
           </motion.div>
         ))}

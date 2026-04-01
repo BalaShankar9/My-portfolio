@@ -51,7 +51,7 @@ export function ProductsSection() {
       </p>
 
       {/* Featured projects */}
-      {featuredProjects.map((project) => (
+      {featuredProjects.map((project, i) => (
         <motion.div
           key={project.slug}
           initial={{ opacity: 0, y: 30 }}
@@ -60,6 +60,11 @@ export function ProductsSection() {
           transition={{ duration: 0.5 }}
           className="mb-20 p-8 md:p-10 border border-[#2a2d35] rounded-xl bg-[#16181d] relative overflow-hidden hover:border-[rgba(99,102,241,0.2)] hover:shadow-[0_0_40px_rgba(99,102,241,0.04)] transition-all"
         >
+          {/* Large number */}
+          <span className="font-mono text-[72px] md:text-[96px] font-bold text-[#1c1e24] leading-none select-none absolute top-6 right-6">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+
           {/* Live badge */}
           {project.links.live && (
             <span className="absolute top-5 right-5 font-mono text-[10px] font-bold text-[#22c55e] bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.2)] px-2.5 py-[3px] rounded flex items-center gap-[5px]">

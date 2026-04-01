@@ -48,3 +48,9 @@ body > * {
   position: relative;
   z-index: 2;
 }
+
+/* Gradient accent line for section transitions */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(99, 102, 241, 0.3), transparent);
+}
