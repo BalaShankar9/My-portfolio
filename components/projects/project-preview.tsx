@@ -1,43 +1,72 @@
 "use client";
 
 /**
- * Rich visual mockup previews for each project.
- * These render styled HTML that visually represents what each live site looks like,
- * instead of blank placeholder boxes.
+ * Pixel-accurate visual mockup previews for each project.
+ * Built from real site inspection data — colors, text, layout match the live sites.
  */
 
 function HireStackPreview() {
   return (
-    <div className="aspect-video bg-white relative overflow-hidden">
-      {/* Purple gradient hero area */}
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-purple-500 to-indigo-700" />
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
-        <div className="text-[10px] font-mono text-purple-200 tracking-widest mb-2">
-          AI-POWERED CAREER INTELLIGENCE
+    <div className="aspect-video relative overflow-hidden" style={{ background: "hsl(220, 20%, 97%)" }}>
+      {/* Decorative gradient blobs */}
+      <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full opacity-30" style={{ background: "radial-gradient(circle, hsl(245, 58%, 51%, 0.15), transparent 70%)" }} />
+      <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full opacity-20" style={{ background: "radial-gradient(circle, rgba(112,71,235,0.12), transparent 70%)" }} />
+
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-5 text-center">
+        {/* Nav bar hint */}
+        <div className="absolute top-2 left-0 right-0 flex items-center justify-between px-4">
+          <span className="text-[8px] font-bold" style={{ color: "hsl(224, 40%, 10%)" }}>HireStack AI</span>
+          <div className="flex gap-2">
+            <span className="text-[6px]" style={{ color: "hsl(224, 40%, 40%)" }}>Pricing</span>
+            <span className="text-[6px] px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(245, 58%, 51%)" }}>Try Free</span>
+          </div>
         </div>
-        <div className="text-white font-bold text-lg sm:text-xl leading-tight">
+
+        <div className="text-[18px] sm:text-[22px] font-bold leading-tight" style={{ color: "hsl(224, 40%, 10%)" }}>
           Stop applying.
         </div>
-        <div className="text-white font-bold text-lg sm:text-xl leading-tight">
-          Start <span className="text-amber-300">landing.</span>
+        <div className="text-[18px] sm:text-[22px] font-bold leading-tight" style={{ color: "hsl(224, 40%, 10%)" }}>
+          Start <span style={{ color: "hsl(245, 58%, 51%)" }}>landing.</span>
         </div>
-        <div className="mt-3 flex gap-2">
-          <div className="px-3 py-1 bg-white rounded-full text-[8px] font-semibold text-purple-700">
-            Build Your Application
+        <div className="mt-1.5 text-[7px] max-w-[280px]" style={{ color: "hsl(224, 20%, 45%)" }}>
+          6 AI agents collaborate to build your perfect application package — ATS-optimized CV, cover letter, and more.
+        </div>
+
+        {/* Stats row */}
+        <div className="mt-2.5 flex gap-3">
+          {[
+            { v: "35+", l: "document types" },
+            { v: "6", l: "AI agents" },
+            { v: "94%", l: "ATS pass rate" },
+            { v: "<3 min", l: "per application" },
+          ].map((s) => (
+            <div key={s.l} className="text-center">
+              <div className="text-[9px] font-bold" style={{ color: "hsl(245, 58%, 51%)" }}>{s.v}</div>
+              <div className="text-[5px]" style={{ color: "hsl(224, 20%, 55%)" }}>{s.l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA buttons */}
+        <div className="mt-2.5 flex gap-2">
+          <div className="px-3 py-1 rounded-lg text-[7px] font-semibold text-white shadow-sm" style={{ background: "hsl(245, 58%, 51%)" }}>
+            Build Your Application — Free
           </div>
-          <div className="px-3 py-1 border border-white/30 rounded-full text-[8px] text-white">
+          <div className="px-3 py-1 rounded-lg text-[7px] font-medium border" style={{ color: "hsl(224, 40%, 30%)", borderColor: "hsl(220, 13%, 85%)" }}>
             View Pricing
           </div>
         </div>
-        {/* Agent cards row */}
-        <div className="mt-4 flex gap-1.5">
-          {["Intel", "Analyst", "Detector", "Architect", "Inspector", "Assembler"].map((agent) => (
+
+        {/* Agent cards */}
+        <div className="mt-3 flex gap-1">
+          {["ReconIntel", "Atlas", "Cipher", "Quill", "Sentinel", "Nova"].map((agent) => (
             <div
               key={agent}
-              className="w-10 h-12 rounded bg-white/10 backdrop-blur border border-white/20 flex flex-col items-center justify-center"
+              className="w-9 h-11 rounded-lg flex flex-col items-center justify-center border shadow-sm"
+              style={{ background: "white", borderColor: "hsl(220, 13%, 90%)" }}
             >
-              <div className="w-3 h-3 rounded-full bg-white/30 mb-1" />
-              <span className="text-[5px] text-white/70">{agent}</span>
+              <div className="w-3 h-3 rounded-full mb-0.5" style={{ background: "hsl(245, 58%, 51%, 0.15)" }} />
+              <span className="text-[4px] font-medium" style={{ color: "hsl(224, 20%, 45%)" }}>{agent}</span>
             </div>
           ))}
         </div>
@@ -48,61 +77,82 @@ function HireStackPreview() {
 
 function SponsorIntelPreview() {
   return (
-    <div className="aspect-video bg-[#0a0a0a] relative overflow-hidden">
+    <div className="aspect-video bg-[#0a0a0a] relative overflow-hidden" style={{ fontFamily: "ui-monospace, monospace" }}>
       {/* Grid background */}
       <div
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(245,166,35,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.3) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
+            "linear-gradient(rgba(245,166,35,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.08) 1px, transparent 1px)",
+          backgroundSize: "30px 30px",
+          mask: "radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 100%)",
+          WebkitMask: "radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 100%)",
         }}
       />
-      {/* Radar sweep */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border border-amber-500/20">
-        <div className="absolute inset-0 rounded-full bg-gradient-conic from-amber-500/20 via-transparent to-transparent animate-spin" style={{ animationDuration: "4s" }} />
+
+      {/* Radar rings */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="w-40 h-40 rounded-full border border-[#f5a623]/10 absolute -translate-x-1/2 -translate-y-1/2" />
+        <div className="w-28 h-28 rounded-full border border-[#f5a623]/15 absolute -translate-x-1/2 -translate-y-1/2" />
+        <div className="w-16 h-16 rounded-full border border-[#f5a623]/20 absolute -translate-x-1/2 -translate-y-1/2" />
       </div>
+
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center">
-        {/* Ticker bar */}
-        <div className="absolute top-2 left-0 right-0 flex gap-2 justify-center">
-          {["NHS TRUST", "DELOITTE", "HSBC", "META", "GOLDMAN"].map((tag) => (
-            <span
-              key={tag}
-              className="px-1.5 py-0.5 text-[5px] font-mono text-amber-400/60 border border-amber-500/20 rounded"
-            >
+        {/* Nav */}
+        <div className="absolute top-2 left-0 right-0 flex items-center justify-between px-3">
+          <div className="flex items-center gap-1">
+            <span className="text-[7px] font-bold text-[#f5a623]">SI</span>
+            <span className="text-[6px] text-zinc-500">SPONSORINTEL</span>
+          </div>
+          <div className="flex gap-2">
+            <span className="text-[5px] text-zinc-500">Search</span>
+            <span className="text-[5px] text-zinc-500">Jobs</span>
+            <span className="text-[5px] text-zinc-500">Trends</span>
+            <span className="text-[5px] px-1.5 py-0.5 rounded bg-[#f5a623] text-black font-bold">Start Free</span>
+          </div>
+        </div>
+
+        {/* Ticker */}
+        <div className="absolute top-7 left-0 right-0 flex gap-1.5 justify-center overflow-hidden">
+          {["NHS TRUST LONDON", "DELOITTE UK", "HSBC BANK PLC", "META PLATFORMS", "GOLDMAN SACHS"].map((tag) => (
+            <span key={tag} className="px-1 py-0.5 text-[4px] text-[#f5a623]/50 border border-[#f5a623]/15 rounded whitespace-nowrap">
               {tag}
             </span>
           ))}
         </div>
-        <div className="text-white font-bold text-base sm:text-lg leading-tight">
+
+        <div className="text-white font-bold text-[16px] sm:text-[18px] leading-tight mt-2">
           The Bloomberg Terminal
         </div>
-        <div className="text-base sm:text-lg leading-tight">
-          <span className="font-bold bg-gradient-to-r from-amber-400 via-amber-300 to-cyan-400 bg-clip-text text-transparent">
-            for UK Visa Sponsorship
+        <div className="text-[16px] sm:text-[18px] leading-tight font-bold">
+          <span style={{ background: "linear-gradient(135deg, #fff 0%, #f5a623 50%, #00e5ff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            for Visas
           </span>
         </div>
-        <div className="mt-2 text-[9px] text-zinc-400">
-          Real-time intelligence on <span className="text-amber-400 font-bold">140K+</span> sponsors
+        <div className="mt-1.5 text-[7px] text-zinc-500 max-w-[260px]">
+          Real-time intelligence on <span className="text-[#f5a623] font-bold">140,312+</span> UK visa sponsors. AI-powered job matching, policy alerts, risk signals.
         </div>
-        <div className="mt-3 flex gap-2">
-          <div className="px-3 py-1 bg-amber-500 rounded text-[8px] font-semibold text-black">
-            Start Free
+
+        {/* CTAs */}
+        <div className="mt-2.5 flex gap-2">
+          <div className="px-2.5 py-1 bg-[#f5a623] rounded text-[7px] font-bold text-black">
+            Start Free →
           </div>
-          <div className="px-3 py-1 border border-zinc-700 rounded text-[8px] text-zinc-300">
+          <div className="px-2.5 py-1 border border-zinc-700 rounded text-[7px] text-zinc-300">
             Explore Sponsors
           </div>
         </div>
-        {/* Stats row */}
-        <div className="mt-3 flex gap-4">
+
+        {/* Stats */}
+        <div className="mt-2.5 flex gap-3">
           {[
-            { v: "140K+", l: "Sponsors" },
-            { v: "12K+", l: "Jobs" },
-            { v: "24/7", l: "Monitoring" },
+            { v: "140K+", l: "Sponsors Tracked" },
+            { v: "12K+", l: "Jobs Indexed" },
+            { v: "24/7", l: "AI Agents Active" },
           ].map((s) => (
-            <div key={s.l} className="text-center">
-              <div className="text-[10px] font-mono font-bold text-amber-400">{s.v}</div>
-              <div className="text-[6px] text-zinc-500">{s.l}</div>
+            <div key={s.l} className="text-center px-2 py-1 rounded border border-white/5 bg-white/[0.03]" style={{ backdropFilter: "blur(10px)" }}>
+              <div className="text-[9px] font-bold text-[#f5a623]">{s.v}</div>
+              <div className="text-[4px] text-zinc-600">{s.l}</div>
             </div>
           ))}
         </div>
@@ -113,43 +163,79 @@ function SponsorIntelPreview() {
 
 function CarpoolNetworkPreview() {
   return (
-    <div className="aspect-video bg-zinc-950 relative overflow-hidden">
-      {/* Map-like background */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/4 left-1/3 w-20 h-20 rounded-full bg-red-500/20 blur-xl" />
-        <div className="absolute bottom-1/3 right-1/4 w-16 h-16 rounded-full bg-red-500/15 blur-xl" />
-        <div className="absolute top-1/2 left-1/2 w-12 h-12 rounded-full bg-red-500/10 blur-xl" />
-      </div>
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
-        <div className="flex items-center gap-1.5 mb-2">
-          <div className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center">
-            <span className="text-[6px] text-white font-bold">CN</span>
-          </div>
-          <span className="text-[8px] font-semibold text-white">CarpoolNetwork</span>
-        </div>
-        <div className="text-white font-bold text-base sm:text-lg leading-tight">
-          Share Rides, <span className="text-red-400">Save Money</span>
-        </div>
-        <div className="mt-1 text-[8px] text-zinc-400 max-w-[200px]">
-          UK's trusted carpooling community. Active in Cardiff, Sheffield & more.
-        </div>
-        <div className="mt-3 flex gap-2">
-          <div className="px-3 py-1 bg-red-500 rounded text-[8px] font-semibold text-white">
-            Find a Ride
-          </div>
-          <div className="px-3 py-1 border border-zinc-700 rounded text-[8px] text-zinc-300">
-            Offer a Ride
+    <div className="aspect-video bg-white relative overflow-hidden">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-5 text-center">
+        {/* Nav */}
+        <div className="absolute top-2 left-0 right-0 flex items-center justify-between px-4">
+          <span className="text-[8px] font-bold text-gray-900">Carpool Network</span>
+          <div className="flex gap-2 items-center">
+            <span className="text-[5px] text-gray-500">How It Works</span>
+            <span className="text-[5px] text-gray-500">Communities</span>
+            <span className="text-[5px] text-gray-500">Safety</span>
+            <span className="text-[5px] px-1.5 py-0.5 rounded-md text-white font-bold bg-emerald-500">Get Started</span>
           </div>
         </div>
-        {/* Feature cards */}
-        <div className="mt-3 flex gap-2">
-          {["Real-time Chat", "Verified Users", "Route Matching"].map((f) => (
-            <div
-              key={f}
-              className="px-2 py-1.5 rounded bg-zinc-800/80 border border-zinc-700/50"
-            >
-              <span className="text-[6px] text-zinc-300">{f}</span>
+
+        {/* Hero */}
+        <div className="text-[17px] sm:text-[20px] font-bold leading-tight text-gray-900">
+          Share Rides. Save Money.
+        </div>
+        <div className="text-[17px] sm:text-[20px] font-bold leading-tight text-emerald-600">
+          Help the Planet.
+        </div>
+        <div className="mt-1.5 text-[7px] text-gray-500 max-w-[240px]">
+          Join our growing community of UK commuters sharing their daily journeys.
+        </div>
+
+        {/* CTAs */}
+        <div className="mt-2.5 flex gap-2">
+          <div className="px-3 py-1 bg-emerald-500 rounded-lg text-[7px] font-semibold text-white">
+            Get Started Free
+          </div>
+          <div className="px-3 py-1 border border-gray-300 rounded-lg text-[7px] text-gray-600">
+            See How It Works
+          </div>
+        </div>
+
+        {/* Stats row */}
+        <div className="mt-3 flex gap-4">
+          {[
+            { v: "500+", l: "Members" },
+            { v: "1.2K", l: "Rides Shared" },
+            { v: "4.9", l: "Avg Rating" },
+          ].map((s) => (
+            <div key={s.l} className="text-center">
+              <div className="text-[10px] font-bold text-emerald-600">{s.v}</div>
+              <div className="text-[5px] text-gray-400">{s.l}</div>
             </div>
+          ))}
+        </div>
+
+        {/* Feature cards */}
+        <div className="mt-2.5 flex gap-1.5">
+          {[
+            { t: "Trusted Community", c: "Verified drivers & passengers" },
+            { t: "Safe & Secure", c: "In-app messaging & tracking" },
+            { t: "Eco-Friendly", c: "Reduce your carbon footprint" },
+          ].map((f) => (
+            <div key={f.t} className="px-2 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-left" style={{ width: "90px" }}>
+              <div className="text-[5px] font-bold text-gray-800">{f.t}</div>
+              <div className="text-[4px] text-gray-500 mt-0.5">{f.c}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Cities */}
+        <div className="mt-2 flex gap-1.5">
+          {["Cardiff", "Sheffield"].map((city) => (
+            <span key={city} className="px-1.5 py-0.5 text-[5px] font-medium text-emerald-700 bg-emerald-50 rounded-full border border-emerald-200">
+              {city} — Active
+            </span>
+          ))}
+          {["Bristol", "Manchester"].map((city) => (
+            <span key={city} className="px-1.5 py-0.5 text-[5px] text-gray-400 bg-gray-50 rounded-full border border-gray-200">
+              {city} — Soon
+            </span>
           ))}
         </div>
       </div>
@@ -160,57 +246,54 @@ function CarpoolNetworkPreview() {
 function SecProbePreview() {
   return (
     <div className="aspect-video bg-[#0d1117] relative overflow-hidden font-mono">
-      {/* Terminal-style preview */}
       <div className="p-3 h-full flex flex-col">
-        <div className="text-[8px] text-green-400 mb-1">$ secprobe example.com -s all</div>
-        <div className="flex-1 space-y-1 overflow-hidden">
-          <div className="text-[7px] text-zinc-400">
-            <span className="text-cyan-400">[*]</span> Starting SecProbe v1.0
+        <div className="text-[8px] text-green-400 mb-1.5">
+          <span className="text-zinc-500">$</span> secprobe example.com -s all -o console
+        </div>
+        <div className="flex-1 space-y-[3px] overflow-hidden">
+          <div className="text-[6.5px] text-cyan-400">
+            ═══ SecProbe v1.0 — Security Testing Toolkit ═══
           </div>
-          <div className="text-[7px] text-zinc-400">
-            <span className="text-cyan-400">[*]</span> Target: example.com
+          <div className="text-[6.5px] text-zinc-500">Target: example.com | Modules: 10/10</div>
+          <div className="h-px bg-zinc-800 my-1" />
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">Port Scanner</span> <span className="text-green-400 ml-1">80, 443, 8080 open</span>
           </div>
-          <div className="text-[7px]">
-            <span className="text-green-400">[+]</span>{" "}
-            <span className="text-zinc-300">Port Scanner:</span>{" "}
-            <span className="text-green-400">80, 443, 8080 open</span>
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">SSL/TLS</span> <span className="text-green-400 ml-1">TLS 1.3 — A+ grade</span>
           </div>
-          <div className="text-[7px]">
-            <span className="text-green-400">[+]</span>{" "}
-            <span className="text-zinc-300">SSL/TLS:</span>{" "}
-            <span className="text-green-400">TLS 1.3, Valid cert</span>
+          <div className="text-[6.5px]">
+            <span className="text-yellow-400">⚠</span> <span className="text-zinc-400">Headers</span> <span className="text-yellow-400 ml-1">Missing CSP, X-Frame-Options</span>
           </div>
-          <div className="text-[7px]">
-            <span className="text-yellow-400">[!]</span>{" "}
-            <span className="text-zinc-300">Headers:</span>{" "}
-            <span className="text-yellow-400">Missing CSP, X-Frame-Options</span>
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">SQLi</span> <span className="text-green-400 ml-1">No injection points found</span>
           </div>
-          <div className="text-[7px]">
-            <span className="text-green-400">[+]</span>{" "}
-            <span className="text-zinc-300">SQLi:</span>{" "}
-            <span className="text-green-400">No vulnerabilities found</span>
+          <div className="text-[6.5px]">
+            <span className="text-red-400">✗</span> <span className="text-zinc-400">XSS</span> <span className="text-red-400 ml-1">1 reflected XSS in /search?q=</span>
           </div>
-          <div className="text-[7px]">
-            <span className="text-red-400">[!]</span>{" "}
-            <span className="text-zinc-300">XSS:</span>{" "}
-            <span className="text-red-400">1 reflected XSS in /search</span>
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">Directory</span> <span className="text-green-400 ml-1">No exposed paths</span>
           </div>
-          <div className="text-[7px]">
-            <span className="text-green-400">[+]</span>{" "}
-            <span className="text-zinc-300">CORS:</span>{" "}
-            <span className="text-green-400">Properly configured</span>
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">DNS</span> <span className="text-zinc-500 ml-1">3 subdomains found</span>
           </div>
-          <div className="text-[7px]">
-            <span className="text-green-400">[+]</span>{" "}
-            <span className="text-zinc-300">Tech:</span>{" "}
-            <span className="text-zinc-400">Nginx 1.24, React, Node.js</span>
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">Cookies</span> <span className="text-green-400 ml-1">Secure, HttpOnly, SameSite</span>
           </div>
-          <div className="mt-1 pt-1 border-t border-zinc-800 text-[7px]">
-            <span className="text-cyan-400">[*]</span>{" "}
-            <span className="text-zinc-300">Scan complete:</span>{" "}
-            <span className="text-green-400">8/10</span> passed |{" "}
-            <span className="text-yellow-400">1</span> warning |{" "}
-            <span className="text-red-400">1</span> critical
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">CORS</span> <span className="text-green-400 ml-1">Properly restricted</span>
+          </div>
+          <div className="text-[6.5px]">
+            <span className="text-green-400">✓</span> <span className="text-zinc-400">Tech</span> <span className="text-zinc-500 ml-1">Nginx 1.24 · React · Node.js</span>
+          </div>
+          <div className="h-px bg-zinc-800 my-1" />
+          <div className="text-[7px] font-bold">
+            <span className="text-cyan-400">Score:</span>{" "}
+            <span className="text-green-400">B+</span>{" "}
+            <span className="text-zinc-600">|</span>{" "}
+            <span className="text-green-400">8</span> <span className="text-zinc-600">pass</span>{" "}
+            <span className="text-yellow-400">1</span> <span className="text-zinc-600">warn</span>{" "}
+            <span className="text-red-400">1</span> <span className="text-zinc-600">critical</span>
           </div>
         </div>
       </div>

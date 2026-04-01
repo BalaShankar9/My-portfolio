@@ -17,8 +17,8 @@ export const projects: Project[] = [
     tech: ["Next.js", "FastAPI", "Supabase", "Python", "TypeScript"],
     metrics: [
       { value: "6", label: "AI Agents" },
-      { value: "Multi", label: "Tenant Enterprise" },
-      { value: "Live", label: "hirestack.tech" },
+      { value: "94%", label: "ATS Pass Rate" },
+      { value: "35+", label: "Document Types" },
     ],
     whatISolved:
       "Built a streaming pipeline where 6 AI agents hand off context sequentially — the hardest part was orchestrating graceful failures when one agent times out mid-chain.",
