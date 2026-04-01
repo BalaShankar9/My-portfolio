@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bala Sankar Bollineni — Full Stack Builder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1115;
+    --bg-surface: #16181d;
+    --bg-elevated: #1c1e24;
+    --border: #2a2d35;
+    --text: #e4e4e7;
+    --text-muted: #a1a1aa;
+    --text-dim: #71717a;
+    --text-faint: #52525b;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.12);
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #eab308;
+    --cyan: #06b6d4;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #2a2d35 #0f1115; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
+
+  .cursor-glow { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+  section { position: relative; z-index: 2; }
+
+  /* ===== NAV ===== */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 clamp(24px, 5vw, 80px); background: rgba(15,17,21,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  nav.scrolled { border-color: var(--border); }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; height: 56px; }
+  nav .logo { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.05em; }
+  nav .links { display: flex; gap: 24px; }
+  nav .links a { font-family: var(--mono); font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color 0.3s; }
+  nav .links a:hover { color: var(--text); }
+  /* Status bar under nav */
+  .status-bar { display: flex; gap: 16px; align-items: center; padding: 6px clamp(24px,5vw,80px); background: var(--bg-surface); border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: var(--text-dim); position: fixed; top: 56px; left: 0; right: 0; z-index: 99; }
+  .status-bar .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; animation: statusPulse 2s ease-in-out infinite; }
+  .status-bar span { display: flex; align-items: center; gap: 6px; }
+
+  /* ===== HERO ===== */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 clamp(24px, 5vw, 80px); padding-top: 80px; position: relative; }
+  .hero::before { content: ''; position: absolute; top: 10%; left: 15%; width: 600px; height: 600px; background: radial-gradient(circle, var(--accent-glow), transparent 70%); pointer-events: none; filter: blur(100px); }
+  .hero::after { content: ''; position: absolute; bottom: 20%; right: 10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(34,197,94,0.05), transparent 70%); pointer-events: none; filter: blur(80px); }
+
+  .hero-prompt { font-family: var(--mono); font-size: 13px; color: var(--text-dim); margin-bottom: 16px; opacity:0; animation: fadeUp .5s ease forwards; }
+  .hero-prompt .dollar { color: var(--green); }
+
+  .hero-headline { font-family: var(--sans); font-size: clamp(40px, 8vw, 80px); font-weight: 700; line-height: 1.0; letter-spacing: -0.04em; color: var(--text); margin-bottom: 8px; opacity:0; animation: fadeUp .7s ease forwards; animation-delay: .2s; }
+  .hero-headline .num { font-family: var(--mono); background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .hero-name { font-family: var(--mono); font-size: clamp(14px, 2vw, 18px); color: var(--text-dim); margin-top: 12px; opacity:0; animation: fadeUp .5s ease forwards; animation-delay: .5s; }
+  .hero-name .accent { color: var(--accent); }
+
+  .hero-desc { font-size: clamp(16px, 2vw, 20px); color: var(--text-muted); max-width: 560px; margin-top: 24px; line-height: 1.6; opacity:0; animation: fadeUp .5s ease forwards; animation-delay: .7s; }
+
+  /* Quick facts — the 6-second scan */
+  .hero-facts { display: flex; gap: 32px; margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); opacity:0; animation: fadeUp .5s ease forwards; animation-delay: .9s; }
+  .hero-facts .fact { display: flex; flex-direction: column; }
+  .hero-facts .fact-value { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--text); }
+  .hero-facts .fact-label { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+  .hero-cta { display: flex; gap: 16px; margin-top: 32px; opacity:0; animation: fadeUp .5s ease forwards; animation-delay: 1.1s; }
+  .hero-cta a { font-family: var(--mono); font-size: 13px; text-decoration: none; padding: 10px 20px; border-radius: 6px; transition: all .3s; }
+  .hero-cta .primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+  .hero-cta .primary:hover { background: #818cf8; box-shadow: 0 0 24px var(--accent-glow); }
+  .hero-cta .secondary { color: var(--text-muted); border: 1px solid var(--border); }
+  .hero-cta .secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-faint); opacity:0; animation: fadeUp .5s ease forwards; animation-delay: 1.5s; }
+  .scroll-line { width: 1px; height: 20px; background: linear-gradient(to bottom, var(--text-faint), transparent); animation: pulse 2s ease-in-out infinite; }
+
+  /* ===== PRODUCTS ===== */
+  .products { padding: 100px clamp(24px, 5vw, 80px); }
+  .section-label { font-family: var(--mono); font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .section-title { font-size: clamp(28px, 4vw, 48px); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .section-subtitle { font-size: 16px; color: var(--text-muted); max-width: 600px; margin-bottom: 56px; }
+
+  .build-entry { margin-bottom: 64px; padding: 32px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-surface); transition: border-color .3s, box-shadow .3s; position: relative; overflow: hidden; }
+  .build-entry:hover { border-color: rgba(99,102,241,0.2); box-shadow: 0 0 40px rgba(99,102,241,0.04); }
+  .build-entry .live-badge { position: absolute; top: 20px; right: 20px; font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--green); background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); padding: 3px 10px; border-radius: 4px; display: flex; align-items: center; gap: 5px; }
+  .build-entry .live-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+
+  .build-problem { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-bottom: 12px; padding: 8px 12px; background: rgba(239,68,68,0.04); border-left: 2px solid var(--red); border-radius: 0 4px 4px 0; }
+  .build-problem strong { color: var(--red); font-weight: 600; }
+
+  .build-name { font-size: clamp(24px, 3.5vw, 36px); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .build-name a { color: var(--text); text-decoration: none; transition: color .3s; }
+  .build-name a:hover { color: var(--accent); }
+  .build-pitch { font-size: 15px; color: var(--text-muted); margin-bottom: 16px; max-width: 600px; line-height: 1.5; }
+
+  /* What I solved — the engineering signal */
+  .build-insight { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; padding: 10px 14px; background: var(--bg-elevated); border-radius: 6px; border-left: 2px solid var(--accent); line-height: 1.6; }
+  .build-insight strong { color: var(--accent); font-weight: 600; }
+
+  .build-tech { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+  .build-tech span { font-family: var(--mono); font-size: 11px; color: var(--text-dim); background: var(--bg-elevated); border: 1px solid var(--border); padding: 3px 10px; border-radius: 4px; }
+
+  .build-bottom { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .build-metrics { display: flex; gap: 24px; }
+  .metric { display: flex; flex-direction: column; }
+  .metric-value { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--text); }
+  .metric-label { font-family: var(--mono); font-size: 10px; color: var(--text-faint); }
+  .build-links { display: flex; gap: 8px; }
+  .build-links a { font-family: var(--mono); font-size: 12px; color: var(--text-dim); text-decoration: none; padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; transition: all .3s; }
+  .build-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Secondary projects grid */
+  .secondary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 40px; }
+  .secondary-card { border: 1px solid var(--border); border-radius: 10px; padding: 20px; background: var(--bg-surface); transition: all .3s; }
+  .secondary-card:hover { border-color: rgba(99,102,241,0.2); }
+  .secondary-card h4 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .secondary-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; line-height: 1.5; }
+  .secondary-card .tech { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+
+  /* ===== HOW I WORK ===== */
+  .process { padding: 100px clamp(24px,5vw,80px); border-top: 1px solid var(--border); }
+  .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; margin-top: 48px; }
+  .process-card { padding: 24px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-surface); }
+  .process-card .number { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--accent); opacity: 0.4; margin-bottom: 12px; }
+  .process-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .process-card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+  /* ===== JOURNEY ===== */
+  .journey { padding: 100px clamp(24px, 5vw, 80px); border-top: 1px solid var(--border); }
+  .journey-grid { display: grid; gap: 0; max-width: 700px; }
+  .journey-entry { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+  .journey-entry:last-child { border-bottom: none; }
+  .journey-year { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--accent); min-width: 48px; padding-top: 2px; }
+  .journey-text { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+  .journey-text strong { color: var(--text); font-weight: 500; }
+
+  /* ===== STACK ===== */
+  .stack { padding: 100px clamp(24px, 5vw, 80px); border-top: 1px solid var(--border); }
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; }
+  .stack-category h3 { font-family: var(--mono); font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .stack-category .items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack-category .items span { font-family: var(--mono); font-size: 13px; color: var(--text-dim); padding: 6px 12px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; transition: all .3s; cursor: default; }
+  .stack-category .items span:hover { border-color: var(--accent); color: var(--text); }
+
+  /* ===== ABOUT ===== */
+  .about { padding: 100px clamp(24px, 5vw, 80px); border-top: 1px solid var(--border); }
+  .about-content { max-width: 640px; }
+  .about-content p { font-size: 17px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+  .about-content p strong { color: var(--text); font-weight: 500; }
+  .about-details { display: flex; gap: 32px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 13px; color: var(--text-dim); flex-wrap: wrap; }
+
+  /* ===== CONTACT ===== */
+  .contact { padding: 100px clamp(24px,5vw,80px) 80px; border-top: 1px solid var(--border); }
+  .contact-inner { max-width: 640px; }
+  .contact-prompt { font-family: var(--mono); font-size: 13px; color: var(--green); margin-bottom: 12px; }
+  .contact h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .contact .contact-sub { font-size: 16px; color: var(--text-muted); margin-bottom: 32px; max-width: 480px; }
+  .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .contact-links a { font-family: var(--mono); font-size: 13px; color: var(--text-muted); text-decoration: none; padding: 10px 20px; border: 1px solid var(--border); border-radius: 6px; transition: all .3s; }
+  .contact-links a:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+  .contact-links a.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ===== FOOTER ===== */
+  footer { padding: 24px clamp(24px,5vw,80px); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.3; transform: translateY(3px); } }
+  @keyframes statusPulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+  .cursor-blink { animation: blink 1s step-end infinite; color: var(--green); }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+  /* ===== LIVE SHOWCASE ===== */
+  .showcase { margin: 20px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-elevated); }
+  .showcase-chrome { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--bg-elevated); border-bottom: 1px solid var(--border); }
+  .showcase-dots { display: flex; gap: 5px; }
+  .showcase-dots span { width: 8px; height: 8px; border-radius: 50%; }
+  .showcase-dots .r { background: #ef4444; opacity: 0.6; }
+  .showcase-dots .y { background: #eab308; opacity: 0.6; }
+  .showcase-dots .g { background: #22c55e; opacity: 0.6; }
+  .showcase-url { flex: 1; text-align: center; font-family: var(--mono); font-size: 10px; color: var(--text-faint); background: var(--bg); padding: 3px 12px; border-radius: 4px; margin: 0 8px; }
+  .showcase-nav { display: flex; gap: 4px; }
+  .showcase-nav button { width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--text-faint); background: transparent; cursor: pointer; padding: 0; transition: all 0.3s; }
+  .showcase-nav button.active { background: var(--accent); border-color: var(--accent); }
+  .showcase-frame { position: relative; width: 100%; height: 280px; }
+  .showcase-frame iframe { width: 100%; height: 100%; border: 0; background: #fff; transition: opacity 0.4s; }
+  .showcase-label { position: absolute; bottom: 8px; right: 8px; font-family: var(--mono); font-size: 9px; color: var(--text-faint); background: rgba(15,17,21,0.85); backdrop-filter: blur(8px); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); pointer-events: none; }
+  .showcase-pages { display: flex; gap: 6px; padding: 8px 14px; background: var(--bg-elevated); border-top: 1px solid var(--border); overflow-x: auto; }
+  .showcase-pages button { font-family: var(--mono); font-size: 10px; color: var(--text-faint); background: var(--bg); border: 1px solid var(--border); padding: 3px 10px; border-radius: 4px; cursor: pointer; white-space: nowrap; transition: all .3s; }
+  .showcase-pages button.active { color: var(--accent); border-color: var(--accent); background: rgba(99,102,241,0.08); }
+  .showcase-pages button:hover { color: var(--text-muted); border-color: var(--text-dim); }
+
+  /* ===== AVATAR GUIDE ===== */
+  .avatar-guide { position: fixed; bottom: 24px; right: 24px; z-index: 200; display: flex; align-items: flex-end; gap: 12px; }
+  .avatar-bubble { max-width: 280px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px 12px 4px 12px; padding: 14px 16px; font-size: 13px; color: var(--text-muted); line-height: 1.5; box-shadow: 0 8px 32px rgba(0,0,0,0.3); opacity: 0; transform: translateY(8px); transition: all 0.4s ease; pointer-events: none; }
+  .avatar-bubble.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .avatar-bubble strong { color: var(--text); font-weight: 600; }
+  .avatar-bubble .dismiss { display: block; margin-top: 8px; font-family: var(--mono); font-size: 10px; color: var(--text-faint); cursor: pointer; text-decoration: none; }
+  .avatar-bubble .dismiss:hover { color: var(--text-dim); }
+  .avatar-icon { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #a78bfa); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; color: #fff; cursor: pointer; box-shadow: 0 4px 16px var(--accent-glow); transition: transform 0.3s; flex-shrink: 0; }
+  .avatar-icon:hover { transform: scale(1.08); }
+
+  @media (max-width: 768px) {
+    .hero-facts { flex-wrap: wrap; gap: 16px; }
+    .hero-cta { flex-direction: column; }
+    .hero-cta a { text-align: center; }
+    .build-bottom { flex-direction: column; align-items: flex-start; }
+    .journey-entry { flex-direction: column; gap: 4px; }
+    nav .links { display: none; }
+    .status-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">BSB</a>
+    <div class="links">
+      <a href="#products">Products</a>
+      <a href="#process">Process</a>
+      <a href="#journey">Journey</a>
+      <a href="#stack">Stack</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- STATUS BAR — the 2-second recruiter scan -->
+<div class="status-bar">
+  <span><span class="dot"></span> Open to opportunities</span>
+  <span>📍 Cardiff, UK</span>
+  <span>🇬🇧 Eligible to work in the UK</span>
+  <span>Full-stack · AI · Python · TypeScript</span>
+</div>
+
+<!-- CURSOR GLOW -->
+<div class="cursor-glow" id="glow"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-prompt">
+    <span class="dollar">$</span> bala --status
+  </div>
+  <h1 class="hero-headline">
+    <span class="num">7</span> products shipped.<br>
+    All self-taught.<br>
+    All in production.
+  </h1>
+  <div class="hero-name">
+    <span class="accent">Bala Sankar Bollineni</span> — Full Stack Builder
+  </div>
+  <p class="hero-desc">
+    I solve real problems by building real products. AI career tools, immigration intelligence platforms, ride-sharing networks, security scanners — each one started from a frustration and ended with a deployed URL.
+  </p>
+
+  <!-- The 6-second scan: recruiters decide in this time -->
+  <div class="hero-facts">
+    <div class="fact">
+      <span class="fact-value">7</span>
+      <span class="fact-label">Products shipped</span>
+    </div>
+    <div class="fact">
+      <span class="fact-value">3</span>
+      <span class="fact-label">Live with users</span>
+    </div>
+    <div class="fact">
+      <span class="fact-value">5</span>
+      <span class="fact-label">Languages</span>
+    </div>
+    <div class="fact">
+      <span class="fact-value">140K+</span>
+      <span class="fact-label">Data points indexed</span>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#products" class="primary">See what I built →</a>
+    <a href="/resume.pdf" class="secondary">Download CV</a>
+    <a href="https://github.com/BalaShankar9" class="secondary" target="_blank">GitHub</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="section-label">Shipped Products</div>
+  <h2 class="section-title">Every project started with a real problem.</h2>
+  <p class="section-subtitle">I don't build demo apps. I find broken systems, figure out what's missing, and ship something that works. Here's the build log.</p>
+
+  <!-- HireStack AI -->
+  <div class="build-entry">
+    <span class="live-badge">LIVE</span>
+    <div class="build-problem"><strong>Problem:</strong> Job seekers spend hours on generic CVs that ATS systems reject before a human reads them. I experienced this myself — dozens of applications, zero responses.</div>
+    <h3 class="build-name"><a href="https://hirestack.tech" target="_blank">HireStack AI ↗</a></h3>
+    <p class="build-pitch">6 AI agents collaborate in real-time to build your entire application package — ATS-optimized CV, tailored cover letter, portfolio, gap analysis — in under 3 minutes.</p>
+    <div class="build-insight"><strong>Engineering challenge:</strong> Orchestrating 6 agents that hand off context sequentially with streaming UI. Built circuit breakers for graceful degradation when one agent times out mid-chain — partial results still deliver value.</div>
+    <div class="build-tech"><span>Next.js</span><span>FastAPI</span><span>Supabase</span><span>Python</span><span>TypeScript</span><span>SSE streaming</span></div>
+
+    <!-- LIVE SHOWCASE -->
+    <div class="showcase" id="showcase-hirestack">
+      <div class="showcase-chrome">
+        <div class="showcase-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="showcase-url" id="url-hirestack">hirestack.tech</div>
+        <div class="showcase-nav" id="nav-hirestack"></div>
+      </div>
+      <div class="showcase-frame">
+        <iframe id="frame-hirestack" src="https://hirestack.tech" loading="lazy" sandbox="allow-scripts allow-same-origin" title="HireStack AI"></iframe>
+        <span class="showcase-label">Live preview — hirestack.tech</span>
+      </div>
+      <div class="showcase-pages" id="pages-hirestack"></div>
+    </div>
+
+    <div class="build-bottom">
+      <div class="build-metrics">
+        <div class="metric"><span class="metric-value">6</span><span class="metric-label">AI Agents</span></div>
+        <div class="metric"><span class="metric-value">94%</span><span class="metric-label">ATS Pass Rate</span></div>
+        <div class="metric"><span class="metric-value">35+</span><span class="metric-label">Doc Types</span></div>
+      </div>
+      <div class="build-links">
+        <a href="https://hirestack.tech" target="_blank">↗ hirestack.tech</a>
+        <a href="https://github.com/BalaShankar9/hirestack-ai" target="_blank">↗ Source</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SponsorIntel -->
+  <div class="build-entry">
+    <span class="live-badge">LIVE</span>
+    <div class="build-problem"><strong>Problem:</strong> The UK government publishes 140K+ visa sponsors as a raw CSV. No search, no filtering, no intelligence. Skilled workers, lawyers, and HR teams had no way to make sense of the data.</div>
+    <h3 class="build-name"><a href="https://sponsorintel.london" target="_blank">SponsorIntel ↗</a></h3>
+    <p class="build-pitch">The Bloomberg Terminal of UK sponsor intelligence. Indexes 140K+ companies, scrapes 23+ job boards, tracks immigration policy changes in real-time, and scores companies with a 7-factor algorithm.</p>
+    <div class="build-insight"><strong>Engineering challenge:</strong> Built 17 custom scrapers with anti-detection, rate limiting, exponential backoff, and change-detection diffing. Handles 5% data inconsistency across government sources with validation pipelines.</div>
+    <div class="build-tech"><span>Next.js</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>Celery</span><span>Playwright</span><span>pg_trgm</span></div>
+
+    <!-- LIVE SHOWCASE -->
+    <div class="showcase" id="showcase-sponsorintel">
+      <div class="showcase-chrome">
+        <div class="showcase-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="showcase-url" id="url-sponsorintel">sponsorintel.london</div>
+        <div class="showcase-nav" id="nav-sponsorintel"></div>
+      </div>
+      <div class="showcase-frame">
+        <iframe id="frame-sponsorintel" src="https://sponsorintel.london" loading="lazy" sandbox="allow-scripts allow-same-origin" title="SponsorIntel"></iframe>
+        <span class="showcase-label">Live preview — sponsorintel.london</span>
+      </div>
+      <div class="showcase-pages" id="pages-sponsorintel"></div>
+    </div>
+
+    <div class="build-bottom">
+      <div class="build-metrics">
+        <div class="metric"><span class="metric-value">140K+</span><span class="metric-label">Companies</span></div>
+        <div class="metric"><span class="metric-value">17</span><span class="metric-label">Scrapers</span></div>
+        <div class="metric"><span class="metric-value">&lt;2min</span><span class="metric-label">Alert latency</span></div>
+      </div>
+      <div class="build-links">
+        <a href="https://sponsorintel.london" target="_blank">↗ sponsorintel.london</a>
+        <a href="https://github.com/BalaShankar9/SponsorIntel" target="_blank">↗ Source</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CarpoolNetwork -->
+  <div class="build-entry">
+    <span class="live-badge">LIVE</span>
+    <div class="build-problem"><strong>Problem:</strong> Commuters in Cardiff and Sheffield driving alone — wasting money, increasing emissions. No trusted local carpooling platform for daily commutes.</div>
+    <h3 class="build-name"><a href="https://carpoolnetwork.co.uk" target="_blank">CarpoolNetwork ↗</a></h3>
+    <p class="build-pitch">Ride-sharing platform with user verification, real-time in-app messaging, booking management, and an admin analytics dashboard — all with privacy-first data handling.</p>
+    <div class="build-insight"><strong>Engineering challenge:</strong> Admin analytics use PostgreSQL SECURITY DEFINER RPC functions — queries return only aggregated counts, never exposing user PII. Trust is the core product: verification, ratings, in-app chat.</div>
+    <div class="build-tech"><span>React</span><span>Supabase</span><span>TypeScript</span><span>Tailwind</span><span>Framer Motion</span><span>Supabase Realtime</span></div>
+
+    <!-- LIVE SHOWCASE -->
+    <div class="showcase" id="showcase-carpool">
+      <div class="showcase-chrome">
+        <div class="showcase-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="showcase-url" id="url-carpool">carpoolnetwork.co.uk</div>
+        <div class="showcase-nav" id="nav-carpool"></div>
+      </div>
+      <div class="showcase-frame">
+        <iframe id="frame-carpool" src="https://carpoolnetwork.co.uk" loading="lazy" sandbox="allow-scripts allow-same-origin" title="CarpoolNetwork"></iframe>
+        <span class="showcase-label">Live preview — carpoolnetwork.co.uk</span>
+      </div>
+      <div class="showcase-pages" id="pages-carpool"></div>
+    </div>
+
+    <div class="build-bottom">
+      <div class="build-metrics">
+        <div class="metric"><span class="metric-value">Real-time</span><span class="metric-label">Chat</span></div>
+        <div class="metric"><span class="metric-value">2</span><span class="metric-label">UK Cities</span></div>
+        <div class="metric"><span class="metric-value">Secure</span><span class="metric-label">RPC Analytics</span></div>
+      </div>
+      <div class="build-links">
+        <a href="https://carpoolnetwork.co.uk" target="_blank">↗ carpoolnetwork.co.uk</a>
+        <a href="https://github.com/BalaShankar9/CarpoolNetwork" target="_blank">↗ Source</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SecProbe -->
+  <div class="build-entry">
+    <div class="build-problem"><strong>Problem:</strong> Security testing tools are either enterprise-expensive or require manually chaining multiple CLI tools together.</div>
+    <h3 class="build-name"><a href="https://github.com/BalaShankar9/SecProbe" target="_blank">SecProbe ↗</a></h3>
+    <p class="build-pitch">10-module security testing toolkit — port scanning, SSL/TLS, SQLi, XSS, CORS, directory brute-force, and more. Unified severity-scored reports in console, HTML, or JSON.</p>
+    <div class="build-insight"><strong>Engineering challenge:</strong> Minimizing false positives — suspected SQLi isn't reported unless confirmed with both error-based and time-based detection. Modular architecture lets each scanner run independently with its own rate limiting.</div>
+    <div class="build-tech"><span>Python</span><span>CLI</span><span>Networking</span><span>Threading</span></div>
+    <div class="build-bottom">
+      <div class="build-metrics">
+        <div class="metric"><span class="metric-value">10</span><span class="metric-label">Scanners</span></div>
+        <div class="metric"><span class="metric-value">3</span><span class="metric-label">Report Formats</span></div>
+        <div class="metric"><span class="metric-value">A+ to F</span><span class="metric-label">Grading</span></div>
+      </div>
+      <div class="build-links">
+        <a href="https://github.com/BalaShankar9/SecProbe" target="_blank">↗ Source</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secondary projects -->
+  <div class="section-label" style="margin-top: 56px;">Also shipped</div>
+  <div class="secondary-grid">
+    <div class="secondary-card">
+      <h4>ToolForge</h4>
+      <p>Local-first tool factory that generates native macOS CLI executables as single binaries.</p>
+      <span class="tech">Go</span>
+    </div>
+    <div class="secondary-card">
+      <h4>EdgeAbyss</h4>
+      <p>Precision edge-riding game with dynamic wind, stability mechanics, and gamepad support.</p>
+      <span class="tech">C# · Unity · URP</span>
+    </div>
+    <div class="secondary-card">
+      <h4>AI-Life-Ops</h4>
+      <p>SOC2/GDPR-compliant monorepo scaffold with auth, migrations, secret scanning, and CI/CD.</p>
+      <span class="tech">TypeScript · Prisma · Docker</span>
+    </div>
+  </div>
+
+  <div style="font-family: var(--mono); font-size: 13px; color: var(--text-faint); margin-top: 48px;">
+    <span style="color: var(--green);">$</span> bala build --next <span class="cursor-blink">█</span>
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section class="process" id="process">
+  <div class="section-label">How I work</div>
+  <h2 class="section-title">My approach to building software</h2>
+  <p class="section-subtitle">Not just what I build — how I think about building it.</p>
+
+  <div class="process-grid">
+    <div class="process-card">
+      <div class="number">01</div>
+      <h3>Problem first, tech second</h3>
+      <p>I don't pick a stack and look for a problem. I find a broken system, understand why it's broken, then choose the simplest tech that solves it. PostgreSQL over Elasticsearch when the query patterns are simple. FastAPI over Express when the pipeline is Python-native.</p>
+    </div>
+    <div class="process-card">
+      <div class="number">02</div>
+      <h3>Ship, then polish</h3>
+      <p>A deployed MVP with real users teaches more than a perfect prototype that never ships. I get to "works in production" fast, then iterate based on real usage. Every project on this page was live within weeks of starting.</p>
+    </div>
+    <div class="process-card">
+      <div class="number">03</div>
+      <h3>AI as a force multiplier</h3>
+      <p>I use AI the way a carpenter uses a power tool — it makes me faster, but the architecture decisions, the trade-offs, and the debugging are mine. I understand every line that ships. AI lets a solo builder ship what would normally take a team.</p>
+    </div>
+    <div class="process-card">
+      <div class="number">04</div>
+      <h3>Own the full stack</h3>
+      <p>From database schema to deployment pipeline, I own the entire lifecycle. Not because I have to — because understanding how layers connect makes you build better software. The best debugging happens when you can trace from the UI to the SQL query.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey" id="journey">
+  <div class="section-label">Timeline</div>
+  <h2 class="section-title">How I got here</h2>
+
+  <div class="journey-grid">
+    <div class="journey-entry">
+      <span class="journey-year">2022</span>
+      <span class="journey-text">Moved to the UK. Started <strong>MA in Digital Media Management</strong> at Sheffield Hallam. First internship at <strong>SA Cakes</strong> — built internal content tools, first taste of backend development.</span>
+    </div>
+    <div class="journey-entry">
+      <span class="journey-year">2023</span>
+      <span class="journey-text"><strong>Graduated MA.</strong> Joined <strong>OYO Hotels</strong> (project-based) — maintained production websites, built analytics pipelines with GA4/GTM, performance monitoring. Realized I wanted to build products, not maintain them.</span>
+    </div>
+    <div class="journey-entry">
+      <span class="journey-year">2024</span>
+      <span class="journey-text"><strong>Started teaching myself to code.</strong> TypeScript first, then Python, Go, C#. AI was my pair programmer. Every error was a lesson. Every stack trace was a puzzle. First real projects shipped.</span>
+    </div>
+    <div class="journey-entry">
+      <span class="journey-year">2025</span>
+      <span class="journey-text"><strong>Shipped 5 products</strong> across 5 different tech stacks. SponsorIntel (Python + PostgreSQL), CarpoolNetwork (React + Supabase), SecProbe (Python CLI), ToolForge (Go), EdgeAbyss (C# + Unity).</span>
+    </div>
+    <div class="journey-entry">
+      <span class="journey-year">2026</span>
+      <span class="journey-text"><strong>Built HireStack AI</strong> — 6-agent AI career platform. 7 products shipped total, 3 live with custom domains. Looking for a team that values builders.</span>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="stack" id="stack">
+  <div class="section-label">Tech Stack</div>
+  <h2 class="section-title">What I build with</h2>
+  <div class="stack-grid">
+    <div class="stack-category"><h3>Languages</h3><div class="items"><span>TypeScript</span><span>Python</span><span>Go</span><span>C#</span><span>JavaScript</span><span>SQL</span></div></div>
+    <div class="stack-category"><h3>Frontend</h3><div class="items"><span>React</span><span>Next.js</span><span>Tailwind CSS</span><span>Framer Motion</span><span>Three.js</span></div></div>
+    <div class="stack-category"><h3>Backend</h3><div class="items"><span>FastAPI</span><span>Node.js</span><span>NestJS</span><span>Express</span><span>Celery</span></div></div>
+    <div class="stack-category"><h3>Data & Infra</h3><div class="items"><span>PostgreSQL</span><span>Supabase</span><span>Redis</span><span>Prisma</span><span>Docker</span><span>GitHub Actions</span></div></div>
+    <div class="stack-category"><h3>AI & Scraping</h3><div class="items"><span>Multi-agent systems</span><span>LLM orchestration</span><span>Playwright</span><span>Web scraping</span><span>NLP</span></div></div>
+    <div class="stack-category"><h3>Other</h3><div class="items"><span>Unity</span><span>CLI tooling</span><span>Technical SEO</span><span>GA4 / GTM</span><span>CI/CD</span></div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">About</div>
+  <h2 class="section-title">Who I am</h2>
+  <div class="about-content">
+    <p><strong>I'm a self-taught full-stack builder based in Cardiff, UK.</strong> I came to tech through Digital Media, not Computer Science. I don't have a traditional engineering background — what I have is 7 shipped products and the proof that I can figure anything out.</p>
+    <p>Every project on this page started from a real problem I encountered. I use AI as a building tool — it makes a solo developer as productive as a small team — but the design decisions, architecture, and debugging are mine.</p>
+    <p>I'm looking for a team where <strong>what you ship matters more than where you studied</strong>. I learn fast, I ship faster, and I don't stop until the thing works in production.</p>
+    <div class="about-details">
+      <span>📍 Cardiff, UK</span>
+      <span>🎓 MA Digital Media — Sheffield Hallam, 2023</span>
+      <span>🇬🇧 Eligible to work in the UK</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-prompt">$ bala connect</div>
+    <h2>Let's build something together.</h2>
+    <p class="contact-sub">I'm actively looking for my next role. If you're building something interesting and need someone who ships, let's talk.</p>
+    <div class="contact-links">
+      <a href="mailto:balashankarbollineni4@gmail.com" class="primary">balashankarbollineni4@gmail.com</a>
+      <a href="https://github.com/BalaShankar9" target="_blank">GitHub</a>
+      <a href="/resume.pdf">Download CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Bala Sankar Bollineni © 2026</span>
+  <span style="color: var(--text-faint);">Built with Next.js · Deployed on Vercel</span>
+</footer>
+
+<!-- AVATAR GUIDE -->
+<div class="avatar-guide" id="avatar-guide">
+  <div class="avatar-bubble" id="avatar-bubble">
+    <strong>Hey!</strong> I'm Bala. Scroll down to see what I've built. Each project has a live demo you can explore right here.
+    <a class="dismiss" id="dismiss-btn">Got it x</a>
+  </div>
+  <div class="avatar-icon" id="avatar-toggle" title="Chat with Bala">B</div>
+</div>
+
+<script>
+  // Cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.background = 'radial-gradient(600px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(99,102,241,0.04), transparent 40%)';
+  });
+
+  // Nav scroll
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 50));
+
+  // === LIVE SHOWCASE: Auto-cycling pages ===
+  const showcases = {
+    hirestack: {
+      pages: [
+        { label: "Home", url: "https://hirestack.tech" },
+        { label: "Pricing", url: "https://hirestack.tech/pricing" },
+        { label: "New App", url: "https://hirestack.tech/new" },
+        { label: "Login", url: "https://hirestack.tech/login" }
+      ],
+      current: 0, timer: null
+    },
+    sponsorintel: {
+      pages: [
+        { label: "Home", url: "https://sponsorintel.london" },
+        { label: "Search", url: "https://sponsorintel.london/search" },
+        { label: "Jobs", url: "https://sponsorintel.london/jobs" },
+        { label: "Pricing", url: "https://sponsorintel.london/pricing" }
+      ],
+      current: 0, timer: null
+    },
+    carpool: {
+      pages: [
+        { label: "Home", url: "https://carpoolnetwork.co.uk" },
+        { label: "Communities", url: "https://carpoolnetwork.co.uk/community" },
+        { label: "Safety", url: "https://carpoolnetwork.co.uk/safety" },
+        { label: "Sign In", url: "https://carpoolnetwork.co.uk/sign-in" }
+      ],
+      current: 0, timer: null
+    }
+  };
+
+  function initShowcase(id) {
+    var s = showcases[id];
+    var frame = document.getElementById('frame-' + id);
+    var urlBar = document.getElementById('url-' + id);
+    var pagesContainer = document.getElementById('pages-' + id);
+    var navContainer = document.getElementById('nav-' + id);
+
+    s.pages.forEach(function(page, i) {
+      var btn = document.createElement('button');
+      btn.textContent = page.label;
+      btn.className = i === 0 ? 'active' : '';
+      btn.addEventListener('click', function() { goToPage(id, i); });
+      pagesContainer.appendChild(btn);
+
+      var dot = document.createElement('button');
+      dot.className = i === 0 ? 'active' : '';
+      dot.addEventListener('click', function() { goToPage(id, i); });
+      navContainer.appendChild(dot);
+    });
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !s.timer) {
+          s.timer = setInterval(function() {
+            goToPage(id, (s.current + 1) % s.pages.length);
+          }, 5000);
+        } else if (!entry.isIntersecting && s.timer) {
+          clearInterval(s.timer);
+          s.timer = null;
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(document.getElementById('showcase-' + id));
+  }
+
+  function goToPage(id, index) {
+    var s = showcases[id];
+    s.current = index;
+    var frame = document.getElementById('frame-' + id);
+    var urlBar = document.getElementById('url-' + id);
+    var pagesContainer = document.getElementById('pages-' + id);
+    var navDots = document.getElementById('nav-' + id);
+
+    frame.style.opacity = '0';
+    setTimeout(function() {
+      frame.src = s.pages[index].url;
+      urlBar.textContent = s.pages[index].url.replace('https://', '');
+      frame.style.opacity = '1';
+    }, 300);
+
+    var pageBtns = pagesContainer.querySelectorAll('button');
+    for (var i = 0; i < pageBtns.length; i++) { pageBtns[i].className = i === index ? 'active' : ''; }
+    var dotBtns = navDots.querySelectorAll('button');
+    for (var i = 0; i < dotBtns.length; i++) { dotBtns[i].className = i === index ? 'active' : ''; }
+
+    if (s.timer) { clearInterval(s.timer); }
+    s.timer = setInterval(function() {
+      goToPage(id, (s.current + 1) % s.pages.length);
+    }, 5000);
+  }
+
+  initShowcase('hirestack');
+  initShowcase('sponsorintel');
+  initShowcase('carpool');
+
+  // === AVATAR GUIDE ===
+  var bubbleEl = document.getElementById('avatar-bubble');
+  var bubbleVisible = false;
+
+  setTimeout(function() {
+    bubbleEl.classList.add('visible');
+    bubbleVisible = true;
+  }, 2000);
+
+  setTimeout(function() {
+    if (bubbleVisible) dismissBubble();
+  }, 10000);
+
+  document.getElementById('avatar-toggle').addEventListener('click', function() {
+    bubbleVisible = !bubbleVisible;
+    bubbleEl.classList.toggle('visible', bubbleVisible);
+  });
+
+  document.getElementById('dismiss-btn').addEventListener('click', dismissBubble);
+
+  function dismissBubble() {
+    bubbleEl.classList.remove('visible');
+    bubbleVisible = false;
+  }
+
+  // Contextual avatar messages on scroll
+  var avatarMsgs = [
+    { at: 0, text: "Hey! I'm Bala. Scroll down to see what I've built. Each project has a live demo." },
+    { at: 600, text: "These are real products with real domains. Click the page tabs to explore each one." },
+    { at: 2500, text: "Every project started from a real problem. The engineering challenges show how I think." },
+    { at: 4500, text: "This is how I approach building -- problem first, ship fast, own the full stack." },
+    { at: 6000, text: "Self-taught after a Digital Media MA. 7 products in under a year." }
+  ];
+  var lastMsg = -1;
+  window.addEventListener('scroll', function() {
+    var y = window.scrollY;
+    var idx = -1;
+    for (var i = avatarMsgs.length - 1; i >= 0; i--) {
+      if (y >= avatarMsgs[i].at) { idx = i; break; }
+    }
+    if (idx !== -1 && idx !== lastMsg) {
+      lastMsg = idx;
+      bubbleEl.textContent = '';
+      var strong = document.createElement('strong');
+      strong.textContent = idx === 0 ? 'Hey! ' : '';
+      bubbleEl.appendChild(strong);
+      bubbleEl.appendChild(document.createTextNode(avatarMsgs[idx].text));
+      var dismiss = document.createElement('a');
+      dismiss.className = 'dismiss';
+      dismiss.textContent = 'Got it x';
+      dismiss.addEventListener('click', dismissBubble);
+      bubbleEl.appendChild(dismiss);
+      bubbleEl.classList.add('visible');
+      bubbleVisible = true;
+      (function(capturedIdx) {
+        setTimeout(function() { if (bubbleVisible && lastMsg === capturedIdx) dismissBubble(); }, 6000);
+      })(idx);
+    }
+  });
+</script>
+
+</body>
+</html>

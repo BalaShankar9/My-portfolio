@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@vercel/og": "^0.11.1",
