@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
@@ -31,10 +33,13 @@ function useActiveSection() {
   return active;
 }
 
-export function Navbar() {
+export function Navbar({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
   const [visible, setVisible] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const active = useActiveSection();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const showNav = alwaysVisible || !isHome || visible;
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.8);
@@ -44,7 +49,7 @@ export function Navbar() {
 
   return (
     <AnimatePresence>
-      {visible && (
+      {showNav && (
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -54,9 +59,15 @@ export function Navbar() {
         >
           <div className="bg-zinc-950/80 backdrop-blur-xl">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-              <a href="#" className="font-mono text-sm font-bold text-zinc-100 tracking-wider">
-                BSB
-              </a>
+              {!isHome ? (
+                <Link href="/" className="font-mono text-sm font-bold text-zinc-100 tracking-wider flex items-center gap-2">
+                  <span className="text-zinc-500">&larr;</span> BSB
+                </Link>
+              ) : (
+                <a href="#" className="font-mono text-sm font-bold text-zinc-100 tracking-wider">
+                  BSB
+                </a>
+              )}
               <div className="hidden md:flex items-center gap-8">
                 {NAV_LINKS.map((link) => {
                   const isActive = link.href === `#${active}`;
