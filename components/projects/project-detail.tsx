@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
+import { ExternalLink, ArrowLeft, ArrowRight, Calendar, User } from "lucide-react";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
 import { GitHubIcon } from "@/components/ui/icons";
@@ -20,9 +20,8 @@ export function ProjectDetail({
 }) {
   return (
     <div className="min-h-screen pt-20">
-      {/* Hero area with large preview */}
-      <section className="px-6 pb-16">
-        <div className="mx-auto max-w-6xl">
+      <article className="px-6 pb-16">
+        <div className="mx-auto max-w-4xl">
           {/* Back link */}
           <motion.div
             initial={{ opacity: 0, x: -10 }}
@@ -31,14 +30,14 @@ export function ProjectDetail({
           >
             <Link
               href="/#projects"
-              className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-300 transition-colors mb-8"
+              className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-300 transition-colors mb-10"
             >
               <ArrowLeft size={14} />
               Back to all projects
             </Link>
           </motion.div>
 
-          {/* Project title + meta */}
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,133 +46,205 @@ export function ProjectDetail({
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
               {project.name}
             </h1>
-            <p className="mt-4 text-xl text-zinc-400 max-w-2xl">
+            <p className="mt-4 text-xl text-zinc-400 max-w-2xl leading-relaxed">
               {project.pitch}
             </p>
 
-            {/* Tech + links row */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            {/* Meta row */}
+            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-zinc-500">
+              {project.role && (
+                <span className="inline-flex items-center gap-1.5">
+                  <User size={14} />
+                  {project.role}
+                </span>
+              )}
+              {project.timeline && (
+                <span className="inline-flex items-center gap-1.5">
+                  <Calendar size={14} />
+                  {project.timeline}
+                </span>
+              )}
+            </div>
+
+            {/* Tech + links */}
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               {project.tech.map((t) => (
                 <TechPill key={t} label={t} />
               ))}
-              <span className="text-zinc-700">|</span>
+            </div>
+            <div className="mt-4 flex gap-3">
               {project.links.live && (
                 <a
                   href={project.links.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-indigo-500 text-white hover:bg-indigo-400 transition-colors"
                 >
                   <ExternalLink size={14} />
-                  {new URL(project.links.live).hostname}
+                  Visit {new URL(project.links.live).hostname}
                 </a>
               )}
               <a
                 href={project.links.source}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-300 transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border border-zinc-700 text-zinc-300 hover:border-indigo-500 hover:text-indigo-400 transition-all"
               >
                 <GitHubIcon size={14} />
-                Source Code
+                View Source
               </a>
             </div>
           </motion.div>
 
-          {/* Large preview mockup */}
+          {/* Preview mockup */}
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.6 }}
             className="mt-10"
           >
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900 overflow-hidden shadow-2xl shadow-black/50">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-5 py-3 border-b border-zinc-800 bg-zinc-900/80">
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-900 overflow-hidden shadow-2xl">
+              <div className="flex items-center gap-2 px-5 py-3 border-b border-zinc-800">
                 <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                  <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                  <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                  <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/60" />
                 </div>
-                <div className="flex-1 mx-6">
-                  <div className="h-6 rounded-md bg-zinc-800 max-w-md mx-auto flex items-center justify-center">
+                <div className="flex-1 mx-4">
+                  <div className="h-6 rounded-md bg-zinc-800 max-w-sm mx-auto flex items-center justify-center">
                     <span className="text-xs font-mono text-zinc-500">
-                      {project.links.live
-                        ? new URL(project.links.live).hostname
-                        : project.slug + ".dev"}
+                      {project.links.live ? new URL(project.links.live).hostname : project.slug}
                     </span>
                   </div>
                 </div>
               </div>
-              {/* Live site iframe for projects with live URLs, preview for others */}
               {project.links.live ? (
-                <div className="relative">
-                  <iframe
-                    src={project.links.live}
-                    className="w-full border-0"
-                    style={{ height: "500px" }}
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin"
-                    title={`${project.name} live preview`}
-                  />
-                  {/* Overlay to prevent interaction -- click goes to real site */}
-                  <a
-                    href={project.links.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 z-10 flex items-end justify-center pb-4 opacity-0 hover:opacity-100 transition-opacity bg-gradient-to-t from-black/40 to-transparent"
-                  >
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 backdrop-blur text-sm text-white border border-white/20">
-                      <ExternalLink size={14} />
-                      Open {new URL(project.links.live).hostname}
-                    </span>
-                  </a>
-                </div>
+                <iframe
+                  src={project.links.live}
+                  className="w-full border-0"
+                  style={{ height: "480px" }}
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
+                  title={`${project.name} live preview`}
+                />
               ) : (
                 <ProjectPreview slug={project.slug} />
               )}
             </div>
           </motion.div>
 
-          {/* Metrics + What I Solved */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12"
-          >
-            {/* Metrics */}
-            {project.metrics.length > 0 && (
-              <div>
-                <h2 className="text-sm font-mono text-zinc-500 uppercase tracking-wider mb-4">
-                  Key Metrics
-                </h2>
-                <div className="flex gap-10">
-                  {project.metrics.map((m) => (
-                    <MetricCallout key={m.label} value={m.value} label={m.label} />
-                  ))}
-                </div>
-              </div>
-            )}
+          {/* Metrics */}
+          {project.metrics.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              className="mt-12 flex gap-10 py-6 border-y border-zinc-800/50"
+            >
+              {project.metrics.map((m) => (
+                <MetricCallout key={m.label} value={m.value} label={m.label} />
+              ))}
+            </motion.div>
+          )}
 
-            {/* What I Solved */}
-            {project.whatISolved && (
-              <div>
-                <h2 className="text-sm font-mono text-zinc-500 uppercase tracking-wider mb-4">
-                  Hardest Problem I Solved
+          {/* Case Study Content */}
+          <div className="mt-12 space-y-12">
+            {/* The Problem */}
+            {project.problem && (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-sm font-mono text-indigo-400 uppercase tracking-wider mb-3">
+                  The Problem
                 </h2>
-                <p className="text-zinc-300 leading-relaxed">
-                  {project.whatISolved}
+                <p className="text-lg text-zinc-300 leading-relaxed">
+                  {project.problem}
                 </p>
-              </div>
+              </motion.section>
             )}
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Navigation between projects */}
+            {/* The Solution */}
+            {project.solution && (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-sm font-mono text-indigo-400 uppercase tracking-wider mb-3">
+                  The Solution
+                </h2>
+                <p className="text-lg text-zinc-300 leading-relaxed">
+                  {project.solution}
+                </p>
+              </motion.section>
+            )}
+
+            {/* Key Features */}
+            {project.features && project.features.length > 0 && (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-sm font-mono text-indigo-400 uppercase tracking-wider mb-3">
+                  Key Features
+                </h2>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {project.features.map((f, i) => (
+                    <li key={i} className="flex items-start gap-2 text-zinc-400">
+                      <span className="text-indigo-500 mt-0.5 flex-shrink-0">›</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.section>
+            )}
+
+            {/* Technical Decisions */}
+            {project.techDecisions && (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-sm font-mono text-indigo-400 uppercase tracking-wider mb-3">
+                  Technical Decisions
+                </h2>
+                <p className="text-zinc-400 leading-relaxed">
+                  {project.techDecisions}
+                </p>
+              </motion.section>
+            )}
+
+            {/* What I Learned */}
+            {project.whatILearned && (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-sm font-mono text-indigo-400 uppercase tracking-wider mb-3">
+                  What I Learned
+                </h2>
+                <p className="text-zinc-400 leading-relaxed">
+                  {project.whatILearned}
+                </p>
+              </motion.section>
+            )}
+          </div>
+        </div>
+      </article>
+
+      {/* Nav between projects */}
       <section className="border-t border-zinc-800/50 px-6 py-16">
-        <div className="mx-auto max-w-6xl grid grid-cols-2 gap-6">
+        <div className="mx-auto max-w-4xl grid grid-cols-2 gap-6">
           <Link
             href={`/projects/${prev.slug}`}
             className="group p-6 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:border-indigo-500/30 transition-all"

@@ -7,6 +7,13 @@ export type Project = {
   whatISolved: string;
   links: { live?: string; source: string };
   featured: boolean;
+  problem?: string;
+  solution?: string;
+  role?: string;
+  timeline?: string;
+  features?: string[];
+  techDecisions?: string;
+  whatILearned?: string;
 };
 
 export const projects: Project[] = [
