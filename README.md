@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Bala · Portfolio — The story behind the systems.](.github/showcase/banner.svg)
 
-## Getting Started
+**[Project guide](docs/SHOWCASE.md)** · [Source](https://github.com/BalaShankar9/My-portfolio) · [Issues](https://github.com/BalaShankar9/My-portfolio/issues) · [Bala's work](https://github.com/BalaShankar9)
 
-First, run the development server:
+> **Current stage:** Portfolio implementation · deployment verification pending. [See the evidence and next release checklist](docs/SHOWCASE.md).
+
+# Bala Sankar Bollineni · Portfolio
+
+A personal portfolio presenting software projects, engineering context and ways to collaborate. Built with Next.js, React, TypeScript, Tailwind CSS and Framer Motion.
+
+## Explore
+
+| Area | Source |
+| --- | --- |
+| Homepage | [app/page.tsx](app/page.tsx) |
+| Project catalogue | [lib/projects.ts](lib/projects.ts) |
+| Project case-study routes | [app/projects](app/projects) |
+| Page sections and interface components | [components](components) |
+| Existing project captures | [public/screenshots](public/screenshots) |
+
+## Run locally
 
 ```bash
+git clone https://github.com/BalaShankar9/My-portfolio.git
+cd My-portfolio
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`. The exact framework versions and available scripts are recorded in [package.json](package.json) and the lockfile.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verify a change
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+After building, `npm start` serves the production build locally. Check mobile layout, keyboard navigation, project links and contact routes before publishing.
 
-To learn more about Next.js, take a look at the following resources:
+## Content standard
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Each featured project should explain the problem, intended user, implementation, one meaningful tradeoff and the evidence for its current status. Screenshots are interface illustrations; any displayed usage or performance figures need a separately dated source.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[GitHub profile](https://github.com/BalaShankar9) · [Project guide](docs/SHOWCASE.md)
